@@ -1,0 +1,37 @@
+{
+	"schemaVersion": 1,
+	"id": "arson",
+	"version": "${version}",
+	"name": "Arson",
+	"description": "A Server Utility Mod Made For Arson",
+	"authors": [
+		"JustSunnit"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/arson/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.justsunnit.arson.Arson"
+		],
+		"fabric-datagen": [
+			"net.justsunnit.arson.ArsonDataGenerator"
+		]
+	},
+	"mixins": [
+		"arson.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.10",
+		"minecraft": "~1.21.4",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
