@@ -1,7 +1,7 @@
 package net.justsunnit.arson.util;
 
 import net.justsunnit.arson.Arson;
-import net.justsunnit.arson.classes.PlayerPlaytimeData;
+import net.justsunnit.arson.objects.PlayerPlaytimeData;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

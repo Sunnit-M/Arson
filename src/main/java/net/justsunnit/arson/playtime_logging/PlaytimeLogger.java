@@ -2,17 +2,15 @@ package net.justsunnit.arson.playtime_logging;
 
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.justsunnit.arson.Arson;
-import net.justsunnit.arson.classes.PlayerPlaytimeData;
-import net.justsunnit.arson.classes.ServerTimeStampData;
+import net.justsunnit.arson.objects.PlayerPlaytimeData;
+import net.justsunnit.arson.objects.ServerTimeStampData;
 import net.justsunnit.arson.util.JsonSaveHandler;
 import net.justsunnit.arson.util.WebHookFormatter;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 
 import java.time.*;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class PlaytimeLogger {

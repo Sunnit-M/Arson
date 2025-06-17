@@ -4,8 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import net.justsunnit.arson.TypeAdapters.LocalDateTimeAdapter;
-import net.justsunnit.arson.classes.PlayerPlaytimeData;
-import net.justsunnit.arson.classes.ServerTimeStampData;
+import net.justsunnit.arson.objects.PlayerPlaytimeData;
+import net.justsunnit.arson.objects.ServerTimeStampData;
 
 import java.io.*;
 import java.time.LocalDateTime;
