@@ -1,7 +1,7 @@
 config:
   webhook:
     url: ""
-    avatarUrl: ""
+    avatarUrl: "https://cdn.discordapp.com/embed/avatars/index.png"
     CommandLoggerUsername: "Command Logger"
     PlaytimeLoggerUsername: "Playtime Logger"
     HandshakeLoggerUsername: "Server Handshake Logger"

@@ -28,13 +28,13 @@ public class SpectatePlayer {
             ServerPlayerEntity player = EntityArgumentType.getPlayer(context, "player");
             ServerPlayerEntity sender = context.getSource().getPlayer();
 
-            if(!player.isPlayer()){
-                context.getSource().sendFeedback(() -> Text.of("[ArsonUtils] You can't spectate a non-player entity"), false);
+            if(player == null) {
+                context.getSource().sendFeedback(() -> Text.of("[ArsonUtils," + sender.getName().toString() + "] Player not found"), false);
                 return 0;
             }
 
-            if(player == null) {
-                context.getSource().sendFeedback(() -> Text.of("[ArsonUtils," + sender.getName().toString() + "] Player not found"), false);
+            if(!player.isPlayer()){
+                context.getSource().sendFeedback(() -> Text.of("[ArsonUtils] You can't spectate a non-player entity"), false);
                 return 0;
             }
 
