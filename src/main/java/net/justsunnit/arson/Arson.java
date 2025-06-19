@@ -38,9 +38,9 @@ public class Arson implements ModInitializer {
 		PlaytimeLogger.UpdateTimeStamps();
 		WebHookFormatter.InitializeWebHook();
 
-		playtimeLoggerWebhook = new DiscordWebhook(config.GetConfig().get("webhooks.PlaytimeLogsURL").toString());
-		handshakeLoggerWebhook = new DiscordWebhook(config.GetConfig().get("webhooks.HandshakeLogsURL").toString());
-		commandExecuteLoggerWebhook = new DiscordWebhook(config.GetConfig().get("webhooks.CommandExecuteLogsURL").toString());
+		playtimeLoggerWebhook = new DiscordWebhook(config.GetConfig().getOrDefault("webhooks.PlaytimeLogsURL","").toString());
+		handshakeLoggerWebhook = new DiscordWebhook(config.GetConfig().getOrDefault("webhooks.HandshakeLogsURL","").toString());
+		commandExecuteLoggerWebhook = new DiscordWebhook(config.GetConfig().getOrDefault("webhooks.CommandExecuteLogsURL","").toString());
 
 
 
