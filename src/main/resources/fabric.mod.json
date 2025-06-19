@@ -23,7 +23,10 @@
 		]
 	},
 	"mixins": [
-		"arson.mixins.json"
+		{
+			"config": "arson.mixins.json",
+			"remap": true
+		}
 	],
 	"depends": {
 		"fabricloader": ">=0.16.10",
