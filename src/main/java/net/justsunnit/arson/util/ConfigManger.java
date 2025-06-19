@@ -1,15 +1,17 @@
 package net.justsunnit.arson.util;
 
+import net.justsunnit.arson.Arson;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class ConfigManger {
-    public static List<Runnable> OnUpdateSubscribers;
+    public static List<Runnable> OnUpdateSubscribers = new ArrayList<>();
     public final Path CONFIG_FILE = new File("Arson_Config/config.yml").toPath();
     private Map<String, Object> configData;
 
@@ -27,7 +29,7 @@ public class ConfigManger {
                 configData = yaml.load(input);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Arson.LOGGER.info("[Arson] Failed to load config.yml");
         }
     }
 
@@ -40,7 +42,7 @@ public class ConfigManger {
         }
     }
 
-    public Map GetConfig() {
+    public Map<String,Object> GetConfig() {
         LoadConfig();
         return configData;
     }
@@ -50,7 +52,7 @@ public class ConfigManger {
             Yaml yaml = new Yaml();
             yaml.dump(newConfig, writer);
         } catch (IOException e) {
-            e.printStackTrace();
+            Arson.LOGGER.info("[Arson] Failed to overwrite config.yml");
         }
         LoadConfig();
         for(Runnable r : OnUpdateSubscribers){
