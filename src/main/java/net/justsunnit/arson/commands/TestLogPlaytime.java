@@ -1,9 +1,11 @@
 package net.justsunnit.arson.commands;
 
+import com.eduardomcb.discord.webhook.WebhookManager;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import net.justsunnit.arson.Arson;
 import net.justsunnit.arson.util.IEntityDataSaver;
+import net.justsunnit.arson.util.WebHookFormatter;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.server.command.CommandManager;
@@ -15,6 +17,8 @@ public class TestLogPlaytime {
         dispatcher.register(CommandManager.literal(Arson.CommandStarter)
                 .then(CommandManager.literal("LogPlaytime")
                         .executes(context -> {
+                            WebHookFormatter.SendPlaytimeMonthLog();
+                            WebHookFormatter.SendPlaytimeWeekLog();
                             return 1;
                         })
                 )

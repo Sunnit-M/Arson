@@ -18,6 +18,7 @@ public class ModRegistries {
         CommandRegistrationCallback.EVENT.register((dispatcher, dedicated, thing) -> {
             SpectatePlayer.register(dispatcher, dedicated);
             SpectateReturn.register(dispatcher, dedicated);
+            TestLogPlaytime.register(dispatcher, dedicated);
         });
     }
 
