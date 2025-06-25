@@ -12,7 +12,8 @@ import java.util.Map;
 
 public class ConfigManger {
     public static List<Runnable> OnUpdateSubscribers = new ArrayList<>();
-    public final Path CONFIG_FILE = new File("Arson_Config/config.yml").toPath();
+    public static final Path CONFIG_FOLER_PATH = new File("Arson_Config").toPath();
+    public static final Path CONFIG_FILE = new File("Arson_Config/config.yml").toPath();
     private Map<String, Object> configData;
 
     public ConfigManger() {
@@ -29,7 +30,7 @@ public class ConfigManger {
                 configData = yaml.load(input);
             }
         } catch (IOException e) {
-            Arson.LOGGER.info("[Arson] Failed to load config.yml");
+            Arson.LOGGER.info("[ArsonUtils] Failed to load config.yml");
         }
     }
 
@@ -52,7 +53,7 @@ public class ConfigManger {
             Yaml yaml = new Yaml();
             yaml.dump(newConfig, writer);
         } catch (IOException e) {
-            Arson.LOGGER.info("[Arson] Failed to overwrite config.yml");
+            Arson.LOGGER.info("[ArsonUtils] Failed to overwrite config.yml");
         }
         LoadConfig();
         for(Runnable r : OnUpdateSubscribers){
