@@ -2,9 +2,12 @@ package net.justsunnit.arson;
 
 import net.fabricmc.api.ModInitializer;
 
-import net.justsunnit.arson.event.PlayerJoinLeaveEvents;
-import net.justsunnit.arson.playtime_logging.PlaytimeLogger;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.justsunnit.arson.commands.CommandRegistry;
+import net.justsunnit.arson.event.*;
+import net.justsunnit.arson.playtime_logging.*;
 import net.justsunnit.arson.util.*;
+import net.minecraft.server.MinecraftServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,10 +21,13 @@ public class Arson implements ModInitializer {
 
 	public static final String CommandStarter = "arson";
 
-	public static DiscordWebhook playtimeLoggerWebhook;
-	public static DiscordWebhook handshakeLoggerWebhook;
-	public static DiscordWebhook commandExecuteLoggerWebhook;
+	public static WebHookFormatter playtimeLoggerWebhook;
+	public static WebHookFormatter handshakeLoggerWebhook;
+	public static WebHookFormatter commandExecuteLoggerWebhook;
 	public static ConfigManger config;
+
+	public static MinecraftServer server;
+
 
 	@Override
 	public void onInitialize() {
@@ -31,21 +37,19 @@ public class Arson implements ModInitializer {
 		DirectoryManager.checkDir();
 		config = new ConfigManger();
 
-		ModRegistries.register();
 		JsonSaveHandler.initializeJsonData();
 		PlayerJoinLeaveEvents.registerEvents();
 		PlaytimeLogger.initializeLogger();
 		PlaytimeLogger.UpdateTimeStamps();
 		WebHookFormatter.InitializeWebHook();
 
-		playtimeLoggerWebhook = new DiscordWebhook(config.GetConfig().getOrDefault("webhooks.PlaytimeLogsURL","").toString());
-		handshakeLoggerWebhook = new DiscordWebhook(config.GetConfig().getOrDefault("webhooks.HandshakeLogsURL","").toString());
-		commandExecuteLoggerWebhook = new DiscordWebhook(config.GetConfig().getOrDefault("webhooks.CommandExecuteLogsURL","").toString());
+		EventRegistries.registerEvents();
+		CommandRegistry.registerCommands();
 
-
-
-
-
+		ServerLifecycleEvents.SERVER_STARTED.register(s -> {
+			server = s;
+			System.out.println("Server started: " + server.getName());
+		});
 
 		LOGGER.info("[Arson] Initialized");
 	}
