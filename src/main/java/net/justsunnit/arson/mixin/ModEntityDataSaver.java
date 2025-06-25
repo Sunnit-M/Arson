@@ -1,9 +1,11 @@
 package net.justsunnit.arson.mixin;
 
-import net.justsunnit.arson.Arson;
-import net.justsunnit.arson.util.IEntityDataSaver;
+import net.justsunnit.arson.*;
+import net.justsunnit.arson.util.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -16,23 +18,24 @@ public class ModEntityDataSaver implements IEntityDataSaver {
 
     @Override
     public NbtCompound getPersistentData() {
-        if(persistentData == null){
+        if (persistentData == null) {
             persistentData = new NbtCompound();
         }
         return persistentData;
     }
 
-    @Inject(method = "writeNbt", at = @At("HEAD"))
-    protected void injectWriteMethod(NbtCompound nbt, CallbackInfoReturnable info){
-        if(persistentData != null){
-            nbt.put( "arson.data", persistentData);
+    // This injects into the method that writes entity data to NBT
+    @Inject(method = "writeData", at = @At("HEAD"))
+    protected void injectWriteMethod(WriteView view, CallbackInfo ci) {
+        if (persistentData != null) {
+            view.put("arson.data", NbtCompound.CODEC, persistentData);
         }
     }
 
-    @Inject(method = "readNbt", at = @At("HEAD"))
-    protected void injectReadMethod(NbtCompound nbt, CallbackInfo info) {
-        if (nbt.contains("arson.data", 10)) {
-            persistentData = nbt.getCompound("arson.data");
-        }
+    // This injects into the method that reads entity data from NBT
+    @Inject(method = "readData", at = @At("HEAD"))
+    protected void injectReadMethod(ReadView view, CallbackInfo ci) {
+        view.read("arson.data", NbtCompound.CODEC).ifPresent(comp -> persistentData = comp);
     }
 }
+

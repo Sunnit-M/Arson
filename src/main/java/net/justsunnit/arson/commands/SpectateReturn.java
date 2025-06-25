@@ -18,7 +18,7 @@ public class SpectateReturn {
                             ServerPlayerEntity sender = context.getSource().getPlayer();
                             IEntityDataSaver playerData = (IEntityDataSaver) sender;
 
-                            int[] backpos = playerData.getPersistentData().getIntArray("backpos");
+                            int[] backpos = playerData.getPersistentData().getIntArray("backpos").get();
 
                             if(backpos.length == 0 || backpos == null) {
                                 context.getSource().sendFeedback(() -> Text.of("[ArsonUtils] You don't have a back position"), false);
