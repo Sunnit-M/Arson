@@ -5,7 +5,6 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.justsunnit.arson.commands.CommandRegistry;
 import net.justsunnit.arson.event.*;
-import net.justsunnit.arson.playtime_logging.*;
 import net.justsunnit.arson.util.*;
 import net.minecraft.server.MinecraftServer;
 import org.slf4j.Logger;
@@ -31,9 +30,6 @@ public class Arson implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		// This code runs as soon as Minecraft is in a mod-load-ready state.
-		// However, some things (like resources) may still be uninitialized.
-		// Proceed with mild caution.
 		DirectoryManager.checkDir();
 		config = new ConfigManger();
 
