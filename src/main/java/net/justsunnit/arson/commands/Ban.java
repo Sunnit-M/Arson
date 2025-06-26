@@ -30,22 +30,28 @@ public class Ban {
     }
 
     public static int run(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
-        ServerPlayerEntity player = EntityArgumentType.getPlayer(context, "player");
-        int Days = IntegerArgumentType.getInteger(context, "days");
-        int Hours = IntegerArgumentType.getInteger(context, "hours");
-        int Minutes = IntegerArgumentType.getInteger(context, "minutes");
-        int Seconds = IntegerArgumentType.getInteger(context, "seconds");
-        String Reason = StringArgumentType.getString(context, "reason");
+        try {
+            ServerPlayerEntity player = EntityArgumentType.getPlayer(context, "player");
+            int Days = IntegerArgumentType.getInteger(context, "days");
+            int Hours = IntegerArgumentType.getInteger(context, "hours");
+            int Minutes = IntegerArgumentType.getInteger(context, "minutes");
+            int Seconds = IntegerArgumentType.getInteger(context, "seconds");
+            String Reason = StringArgumentType.getString(context, "reason");
 
-        if (Days < 0 || Hours < 0 || Minutes < 0 || Seconds < 0) {
-            context.getSource().sendError(Text.of("Time values cannot be negative."));
+            if (Days < 0 || Hours < 0 || Minutes < 0 || Seconds < 0) {
+                context.getSource().sendError(Text.of("Time values cannot be negative."));
+                return 0;
+            }
+
+            BannedPlayer data = new BannedPlayer(player.getName().toString(), Reason, LocalDateTime.now(), Days * 86400L + Hours * 3600L + Minutes * 60L + Seconds, false);
+
+            BannedData.banPlayer(data);
+
+            return 1;
+        }
+        catch (Exception e){
+            e.printStackTrace();
             return 0;
         }
-
-        BannedPlayer data = new BannedPlayer(player.getName().toString(), Reason, LocalDateTime.now(), Days * 86400L + Hours * 3600L + Minutes * 60L + Seconds, false);
-
-        BannedData.banPlayer(data);
-
-        return 1;
     }
 }
