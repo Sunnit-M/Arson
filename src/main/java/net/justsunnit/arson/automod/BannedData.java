@@ -74,4 +74,19 @@ public class BannedData { ;
         }
         return false;
     }
+
+    public static void bufferPlayer(BannedPlayer player, String uuid) {
+        HashMap<String, BannedPlayer> bannedPlayers = loadBannedData();
+        if(bannedPlayers.containsKey(uuid)) {
+            BannedPlayer data = bannedPlayers.get(uuid);
+            data.BanSeconds += player.BanSeconds;
+            data.Reason.append("\n").append(player.Reason.toString());
+        }
+        else{
+            bannedPlayers.put(uuid, player);
+        }
+        JsonSaveHandler.SaveBannedPlayerData(bannedPlayers);
+
+        Arson.LOGGER.info("[ArsonUtils] Banned player: " + player.Name);
+    }
 }
