@@ -5,17 +5,15 @@ config:
     CommandLoggerUsername: "Command Logger"
     PlaytimeLoggerUsername: "Playtime Logger"
     HandshakeLoggerUsername: "Server Handshake Logger"
+    SparkLoggerUsername: "Spark Logger"
 
   joinBuffer:
     buffer: 30
     message: "You need to wait a little before attempting to join the server again."
 
 whitelists:
-  Maintenance:
-    enabled: false
-    message: "The server is currently in maintenance mode. Please try again later."
-    Whitelist:
-        - "Sunnit_m"
+  Admins:
+    - "Sunnit_m"
 
   Mods:
     enabled: true
