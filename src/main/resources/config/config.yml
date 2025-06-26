@@ -1,6 +1,8 @@
 config:
   webhook:
-    url: ""
+    modWebhookUrl: ""
+    commandWebhookUrl: ""
+    playtimeWebhookUrl: ""
     avatarUrl: "https://cdn.discordapp.com/embed/avatars/index.png"
     CommandLoggerUsername: "Command Logger"
     PlaytimeLoggerUsername: "Playtime Logger"
