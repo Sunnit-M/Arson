@@ -19,14 +19,14 @@ import java.time.LocalDateTime;
 public class Ban {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess dedicated, CommandManager.RegistrationEnvironment environment) {
         dispatcher.register((CommandManager.literal("arson")
-                .then(CommandManager.literal("ban"))
+                .then(CommandManager.literal("ban")
                 .then(CommandManager.argument("player", EntityArgumentType.player())
-                .then(CommandManager.argument("days", IntegerArgumentType.integer(1))
-                .then(CommandManager.argument("hours", IntegerArgumentType.integer(1))
-                .then(CommandManager.argument("minutes", IntegerArgumentType.integer(1))
+                .then(CommandManager.argument("days", IntegerArgumentType.integer(0))
+                .then(CommandManager.argument("hours", IntegerArgumentType.integer(0))
+                .then(CommandManager.argument("minutes", IntegerArgumentType.integer(0))
                 .then(CommandManager.argument("seconds", IntegerArgumentType.integer(1))
-                .then(CommandManager.argument("Reason", StringArgumentType.greedyString()))
-                .executes(Ban::run))))))));
+                .then(CommandManager.argument("reason", StringArgumentType.greedyString())
+                .executes(Ban::run))))))))));
     }
 
     public static int run(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
@@ -35,7 +35,7 @@ public class Ban {
         int Hours = IntegerArgumentType.getInteger(context, "hours");
         int Minutes = IntegerArgumentType.getInteger(context, "minutes");
         int Seconds = IntegerArgumentType.getInteger(context, "seconds");
-        String Reason = StringArgumentType.getString(context, "Reason");
+        String Reason = StringArgumentType.getString(context, "reason");
 
         if (Days < 0 || Hours < 0 || Minutes < 0 || Seconds < 0) {
             context.getSource().sendError(Text.of("Time values cannot be negative."));
