@@ -1,15 +1,8 @@
-package net.justsunnit.arson.playtime_logging;
+package net.justsunnit.arson.util;
 
-import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.justsunnit.arson.Arson;
 import net.justsunnit.arson.objects.PlayerPlaytimeData;
 import net.justsunnit.arson.objects.ServerTimeStampData;
-import net.justsunnit.arson.util.JsonSaveHandler;
-import net.justsunnit.arson.util.WebHookFormatter;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 
 import java.time.*;
 import java.util.HashMap;
