@@ -7,15 +7,18 @@ config:
     CommandLoggerUsername: "Command Logger"
     PlaytimeLoggerUsername: "Playtime Logger"
     HandshakeLoggerUsername: "Server Handshake Logger"
-    SparkLoggerUsername: "Spark Logger"
+  MessageOfTheDay:
+    enabled: true
+    defaultMessage: "Welcome to the server! Enjoy your stay!"
+    maintenanceMessage: "The server is currently under maintenance. Please check back later."
 
   joinBuffer:
     buffer: 30
     message: "You need to wait a little before attempting to join the server again."
 
-whitelists:
-  Admins:
-    - "Sunnit_m"
+  whitelists:
+    Admins:
+      - "Sunnit_m"
 
   Mods:
     enabled: true
