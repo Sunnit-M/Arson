@@ -8,6 +8,8 @@ import net.justsunnit.arson.util.JsonSaveHandler;
 import net.justsunnit.arson.util.WebHookFormatter;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 
 import java.time.*;
 import java.util.HashMap;
@@ -18,20 +20,6 @@ public class PlaytimeLogger {
 
     public static void initializeLogger(){
         UpdateTimeStamps();
-    }
-
-    public static void playerJoin(ServerPlayNetworkHandler handler, PacketSender sender, MinecraftServer server){
-        playerLoginTimeStamp.put(handler.getPlayer().getName().getLiteralString(), LocalDateTime.now());
-    }
-
-    public static void playerLeave(ServerPlayNetworkHandler handler, MinecraftServer server){
-        Duration timeSpent = Duration.between(playerLoginTimeStamp.get(handler.getPlayer().getName().toString()), LocalDateTime.now());
-        PlayerPlaytimeData data = (PlayerPlaytimeData) JsonSaveHandler.GetPlayerPlaytimeData().getOrDefault(handler.getPlayer().getName().toString(), new PlayerPlaytimeData());
-        data.AddPlaytime(timeSpent.toSeconds());
-        JsonSaveHandler.SavePlayerPlaytimeData(data, handler.getPlayer().getName().toString());
-        Arson.LOGGER.info("Playtime for " + handler.getPlayer().getName().getLiteralString() + " has been saved.");
-
-        playerLoginTimeStamp.remove(handler.getPlayer().getName().getLiteralString());
     }
 
     public static void UpdateTimeStamps(){
@@ -55,7 +43,7 @@ public class PlaytimeLogger {
         JsonSaveHandler.GetPlayerPlaytimeData().forEach((key, value) -> {
             ((PlayerPlaytimeData) value).ResetWeekPlaytime();
         });
-        Arson.LOGGER.info("Week has been reset.");
+        Arson.LOGGER.info("[ArsonUtils] Week has been reset.");
         Arson.LOGGER.info(WebHookFormatter.formatWeekTimeLeaderBoard());
         WebHookFormatter.SendPlaytimeWeekLog();
     }
@@ -65,7 +53,7 @@ public class PlaytimeLogger {
         JsonSaveHandler.GetPlayerPlaytimeData().forEach((key, value) -> {
             ((PlayerPlaytimeData) value).ResetMonthPlaytime();
         });
-        Arson.LOGGER.info("Month has been reset.");
+        Arson.LOGGER.info("[ArsonUtils] Month has been reset.");
         Arson.LOGGER.info(WebHookFormatter.formatMonthTimeLeaderBoard());
         WebHookFormatter.SendPlaytimeMonthLog();
     }
