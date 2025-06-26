@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import net.justsunnit.arson.Arson;
 import net.justsunnit.arson.TypeAdapters.LocalDateTimeAdapter;
-import net.justsunnit.arson.automod.BannedData;
 import net.justsunnit.arson.objects.BannedPlayer;
 import net.justsunnit.arson.objects.PlayerPlaytimeData;
 import net.justsunnit.arson.objects.ServerTimeStampData;
@@ -138,8 +137,6 @@ public class JsonSaveHandler {
             FileWriter writer = new FileWriter(BANNED_PLAYERS_FILE);
             writer.write(GSON.toJson(data));
             writer.close();
-
-            BannedData.loadBannedData();
         } catch (IOException e) {
             e.printStackTrace();
         }
