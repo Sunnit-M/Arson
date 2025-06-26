@@ -37,7 +37,7 @@ public class PlaytimeLogger {
             ((PlayerPlaytimeData) value).ResetWeekPlaytime();
         });
         Arson.LOGGER.info("[ArsonUtils] Week has been reset.");
-        Arson.LOGGER.info(WebHookFormatter.formatWeekTimeLeaderBoard());
+        Arson.LOGGER.info(TextFormatter.formatWeekTimeLeaderBoard());
         WebHookFormatter.SendPlaytimeWeekLog();
     }
 
@@ -47,7 +47,7 @@ public class PlaytimeLogger {
             ((PlayerPlaytimeData) value).ResetMonthPlaytime();
         });
         Arson.LOGGER.info("[ArsonUtils] Month has been reset.");
-        Arson.LOGGER.info(WebHookFormatter.formatMonthTimeLeaderBoard());
+        Arson.LOGGER.info(TextFormatter.formatMonthTimeLeaderBoard());
         WebHookFormatter.SendPlaytimeMonthLog();
     }
 
