@@ -48,6 +48,12 @@ public class ConfigManger {
         return configData;
     }
 
+    public boolean isAdmin(String playerName) {
+        LoadConfig();
+        ArrayList<String> admins = (ArrayList<String>) configData.getOrDefault("config.admins", new ArrayList<String>());
+        return admins.contains(playerName);
+    }
+
     public void OverwriteConfig(Map<String, Object> newConfig) {
         try (Writer writer = Files.newBufferedWriter(CONFIG_FILE)) {
             Yaml yaml = new Yaml();
