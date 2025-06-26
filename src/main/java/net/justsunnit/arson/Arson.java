@@ -38,7 +38,6 @@ public class Arson implements ModInitializer {
 		config = new ConfigManger();
 
 		JsonSaveHandler.initializeJsonData();
-		PlayerJoinLeaveEvents.registerEvents();
 		PlaytimeLogger.initializeLogger();
 		PlaytimeLogger.UpdateTimeStamps();
 		WebHookFormatter.InitializeWebHook();
