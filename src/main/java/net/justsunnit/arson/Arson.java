@@ -43,7 +43,6 @@ public class Arson implements ModInitializer {
 
 		ServerLifecycleEvents.SERVER_STARTED.register(s -> {
 			server = s;
-			System.out.println("Server started: " + server.getName());
 		});
 
 		LOGGER.info("[Arson] Initialized");
