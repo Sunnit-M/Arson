@@ -8,5 +8,6 @@ public class CommandRegistry {
         CommandRegistrationCallback.EVENT.register(SpectateReturn::register);
         CommandRegistrationCallback.EVENT.register(TestLogPlaytime::register);
         CommandRegistrationCallback.EVENT.register(Ban::register);
+        CommandRegistrationCallback.EVENT.register(PermBan::register);
     }
 }

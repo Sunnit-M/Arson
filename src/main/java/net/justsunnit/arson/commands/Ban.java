@@ -22,7 +22,7 @@ import java.util.Collection;
 public class Ban {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess dedicated, CommandManager.RegistrationEnvironment environment) {
         dispatcher.register((CommandManager.literal("arson")
-                .then(CommandManager.literal("ban")
+                .then(CommandManager.literal("timedBan")
                 .then(CommandManager.argument("player", GameProfileArgumentType.gameProfile())
                 .then(CommandManager.argument("days", IntegerArgumentType.integer(0))
                 .then(CommandManager.argument("hours", IntegerArgumentType.integer(0))
