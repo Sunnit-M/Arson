@@ -3,6 +3,7 @@ package net.justsunnit.arson.commands;
 import com.eduardomcb.discord.webhook.WebhookManager;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.context.CommandContext;
 import net.justsunnit.arson.Arson;
 import net.justsunnit.arson.util.IEntityDataSaver;
 import net.justsunnit.arson.util.WebHookFormatter;
@@ -13,15 +14,14 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 public class TestLogPlaytime {
-    public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess dedicated) {
+    public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess dedicated, CommandManager.RegistrationEnvironment env) {
         dispatcher.register(CommandManager.literal(Arson.CommandStarter)
-                .then(CommandManager.literal("LogPlaytime")
-                        .executes(context -> {
-                            WebHookFormatter.SendPlaytimeMonthLog();
-                            WebHookFormatter.SendPlaytimeWeekLog();
-                            return 1;
-                        })
-                )
-        ) ;
+                .then(CommandManager.literal("LogPlaytime").executes(TestLogPlaytime::run)));
+    }
+
+    private static int run(CommandContext<ServerCommandSource> context){
+            WebHookFormatter.SendPlaytimeMonthLog();
+            WebHookFormatter.SendPlaytimeWeekLog();
+            return 1;
     }
 }

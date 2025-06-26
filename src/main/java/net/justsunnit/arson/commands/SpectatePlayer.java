@@ -14,7 +14,7 @@ import net.minecraft.text.Text;
 import net.minecraft.world.GameMode;
 
 public class SpectatePlayer {
-    public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess dedicated) {
+    public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess dedicated, CommandManager.RegistrationEnvironment environment) {
         dispatcher.register(CommandManager.literal(Arson.CommandStarter)
                 .then(CommandManager.literal("Spectate")
                         .then(CommandManager.argument("player", EntityArgumentType.player())
@@ -24,7 +24,7 @@ public class SpectatePlayer {
         );
     }
 
-    public static int run(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+    private static int run(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
             ServerPlayerEntity player = EntityArgumentType.getPlayer(context, "player");
             ServerPlayerEntity sender = context.getSource().getPlayer();
 

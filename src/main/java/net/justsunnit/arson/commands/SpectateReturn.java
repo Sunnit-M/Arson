@@ -1,6 +1,7 @@
 package net.justsunnit.arson.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.context.CommandContext;
 import net.justsunnit.arson.Arson;
 import net.justsunnit.arson.util.IEntityDataSaver;
 import net.minecraft.command.CommandRegistryAccess;
@@ -11,28 +12,28 @@ import net.minecraft.text.Text;
 import net.minecraft.world.GameMode;
 
 public class SpectateReturn {
-    public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess dedicated) {
+    public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess dedicated, CommandManager.RegistrationEnvironment environment) {
         dispatcher.register(CommandManager.literal(Arson.CommandStarter)
                 .then(CommandManager.literal("SpectateReturn")
-                        .executes(context -> {
-                            ServerPlayerEntity sender = context.getSource().getPlayer();
-                            IEntityDataSaver playerData = (IEntityDataSaver) sender;
+                        .executes(SpectateReturn::run)));
+    }
 
-                            int[] backpos = playerData.getPersistentData().getIntArray("backpos").get();
+    private static int run(CommandContext<ServerCommandSource> context){
+        ServerPlayerEntity sender = context.getSource().getPlayer();
+        IEntityDataSaver playerData = (IEntityDataSaver) sender;
 
-                            if(backpos.length == 0 || backpos == null) {
-                                context.getSource().sendFeedback(() -> Text.of("[ArsonUtils] You don't have a back position"), false);
-                                return 0;
-                            }
+        int[] backpos = playerData.getPersistentData().getIntArray("backpos").get();
 
-                            playerData.getPersistentData().remove("backpos");
+        if(backpos.length == 0 || backpos == null) {
+            context.getSource().sendFeedback(() -> Text.of("[ArsonUtils] You don't have a back position"), false);
+            return 0;
+        }
 
-                            sender.changeGameMode(GameMode.SURVIVAL);
-                            sender.requestTeleport(backpos[0], backpos[1], backpos[2]);
-                            sender.setInvulnerable(false);
-                            return 1;
-                        })
-                )
-        );
+        playerData.getPersistentData().remove("backpos");
+
+        sender.changeGameMode(GameMode.SURVIVAL);
+        sender.requestTeleport(backpos[0], backpos[1], backpos[2]);
+        sender.setInvulnerable(false);
+        return 1;
     }
 }
