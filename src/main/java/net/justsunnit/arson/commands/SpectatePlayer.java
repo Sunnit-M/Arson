@@ -38,11 +38,6 @@ public class SpectatePlayer {
                 return 0;
             }
 
-            if(sender == null) {
-                context.getSource().sendFeedback(() -> Text.of("[ArsonUtils] Wat."), false);
-                return 0;
-            }
-
             IEntityDataSaver playerData = (IEntityDataSaver) player;
 
             playerData.getPersistentData().putIntArray("backpos", new int[]{(int) player.getX(), (int) player.getY(), (int) player.getZ()});
