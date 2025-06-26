@@ -3,7 +3,6 @@ package net.justsunnit.arson.util;
 import com.eduardomcb.discord.webhook.*;
 import com.eduardomcb.discord.webhook.models.*;
 import net.justsunnit.arson.*;
-import java.time.format.DateTimeFormatter;
 
 import static net.justsunnit.arson.util.TextFormatter.formatMonthTimeLeaderBoard;
 import static net.justsunnit.arson.util.TextFormatter.formatWeekTimeLeaderBoard;
@@ -34,6 +33,68 @@ public class WebHookFormatter {
         PlaytimeUsername = Arson.config.GetConfig().getOrDefault("config.webhook.PlaytimeLoggerUsername","Playtime Logger").toString();
         CommandUsername = Arson.config.GetConfig().getOrDefault("config.webhook.CommandLoggerUsername","Command Logger").toString();
         HandshakeUsername = Arson.config.GetConfig().getOrDefault("config.webhook.HandshakeLoggerUsername", "Handshake Logger").toString();
+    }
+
+    public static void SendCommandHook(String content) {
+        WebhookManager webhook = new WebhookManager();
+        Message message = new Message().setUsername(CommandUsername);
+        webhook.setChannelUrl(modWebhookUrl);
+        message.setAvatarUrl(avatarURL);
+        message.setContent(content);
+        webhook.setMessage(message);
+        if(modWebhookUrl.matches("https://discord\\.com/api/webhooks/[0-9]+/[A-Za-z0-9_\\-]+"))
+        {
+            webhook.setChannelUrl(modWebhookUrl);
+
+            webhook.setListener(new WebhookClient.Callback() {
+                @Override
+                public void onSuccess(String s) {
+                    Arson.LOGGER.info("[ArsonUtils] Mod Log sent successfully: " + s);
+                }
+
+                @Override
+                public void onFailure(int i, String s) {
+                    Arson.LOGGER.error("[ArsonUtils] Failed to send Mod Log: " + s);
+                }
+            });
+
+            webhook.exec();
+        }
+        else
+        {
+            Arson.LOGGER.info(message.getContent());
+        }
+    }
+
+    public static void SendHandshakeLog(String content) {
+        WebhookManager webhook = new WebhookManager();
+        Message message = new Message().setUsername(HandshakeUsername);
+        webhook.setChannelUrl(modWebhookUrl);
+        message.setAvatarUrl(avatarURL);
+        message.setContent(content);
+        webhook.setMessage(message);
+        if(modWebhookUrl.matches("https://discord\\.com/api/webhooks/[0-9]+/[A-Za-z0-9_\\-]+"))
+        {
+            webhook.setChannelUrl(modWebhookUrl);
+
+            webhook.setListener(new WebhookClient.Callback() {
+                @Override
+                public void onSuccess(String s) {
+                    Arson.LOGGER.info("[ArsonUtils] Handshake Log sent successfully: " + s);
+                }
+
+                @Override
+                public void onFailure(int i, String s) {
+                    Arson.LOGGER.error("[ArsonUtils] Failed to send Handshake Log: " + s);
+                }
+            });
+
+            webhook.exec();
+        }
+        else
+        {
+            Arson.LOGGER.info(message.getContent());
+        }
     }
 
     public static void SendPlaytimeMonthLog(){
