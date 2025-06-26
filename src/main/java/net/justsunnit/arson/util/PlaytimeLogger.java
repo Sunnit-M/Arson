@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PlaytimeLogger {
-    public static Map<String, LocalDateTime> playerLoginTimeStamp = new HashMap<String, LocalDateTime>();
+    public static Map<String, LocalDateTime> playerLoginTimeStamp = new HashMap<>();
 
     public static void initializeLogger(){
         UpdateTimeStamps();
