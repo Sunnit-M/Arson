@@ -5,13 +5,15 @@ import net.justsunnit.arson.util.*;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.justsunnit.arson.*;
 
+import java.util.Optional;
+
 public class ModPlayerCopyFrom implements ServerPlayerEvents.CopyFrom {
     @Override
     public void copyFromPlayer(ServerPlayerEntity oldPlayer, ServerPlayerEntity newPlayer, boolean alive) {
-        // Copy data from oldPlayer to newPlayer
         IEntityDataSaver originalData = (IEntityDataSaver) oldPlayer;
         IEntityDataSaver newData = (IEntityDataSaver) newPlayer;
 
-        newData.getPersistentData().putIntArray("backpos", originalData.getPersistentData().getIntArray("backpos").get());
+        Optional<int[]> backpos = originalData.getPersistentData().getIntArray("backpos");
+        backpos.ifPresent(arr -> newData.getPersistentData().putIntArray("backpos", arr));
     }
 }
