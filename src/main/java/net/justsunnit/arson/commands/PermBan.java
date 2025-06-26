@@ -5,6 +5,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.justsunnit.arson.Arson;
 import net.justsunnit.arson.automod.BannedData;
 import net.justsunnit.arson.objects.BannedPlayer;
 import net.minecraft.command.CommandRegistryAccess;
@@ -19,7 +20,8 @@ import java.util.Collection;
 public class PermBan {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess dedicated, CommandManager.RegistrationEnvironment environment) {
         dispatcher.register(CommandManager.literal("arson")
-                .then(CommandManager.literal("permanentBan")
+                .then(CommandManager.literal("permanentBan").requires(source ->
+                                !source.isExecutedByPlayer() || Arson.config.isAdmin(source.getName()) || source.hasPermissionLevel(2))
                         .then(CommandManager.argument("player", GameProfileArgumentType.gameProfile())
                                 .then(CommandManager.argument("reason", StringArgumentType.greedyString())
                                 .executes(PermBan::run)))));

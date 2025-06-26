@@ -16,7 +16,8 @@ import net.minecraft.world.GameMode;
 public class SpectatePlayer {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess dedicated, CommandManager.RegistrationEnvironment environment) {
         dispatcher.register(CommandManager.literal(Arson.CommandStarter)
-                .then(CommandManager.literal("Spectate")
+                .then(CommandManager.literal("Spectate").requires(source ->
+                                !source.isExecutedByPlayer() || Arson.config.isAdmin(source.getName()) || source.hasPermissionLevel(2))
                         .then(CommandManager.argument("player", EntityArgumentType.player())
                                 .executes(SpectatePlayer::run)
                         )

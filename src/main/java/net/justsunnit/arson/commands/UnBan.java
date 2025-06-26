@@ -4,6 +4,7 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.justsunnit.arson.Arson;
 import net.justsunnit.arson.automod.BannedData;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.GameProfileArgumentType;
@@ -16,7 +17,8 @@ import java.util.Collection;
 public class UnBan {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess dedicated, CommandManager.RegistrationEnvironment environment) {
         dispatcher.register(CommandManager.literal("arson")
-                .then(CommandManager.literal("unban")
+                .then(CommandManager.literal("unban").requires(source ->
+                                !source.isExecutedByPlayer() || Arson.config.isAdmin(source.getName()) || source.hasPermissionLevel(2))
                 .then(CommandManager.argument("player", GameProfileArgumentType.gameProfile())
                         .executes(UnBan::run))));
     }
