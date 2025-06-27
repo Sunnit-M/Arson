@@ -43,6 +43,8 @@ public class PlayerJoinLeaveEvents {
 
         playerLoginTimeStamp.remove(handler.getPlayer().getName().getLiteralString());
 
+        if(BannedData.checkPlayer(handler.getPlayer().getUuidAsString())) return;
+
         BannedPlayer bannedPlayer = new BannedPlayer(
                 handler.getPlayer().getName().toString(),
                 "[Automod] Join/Leave Buffer",
