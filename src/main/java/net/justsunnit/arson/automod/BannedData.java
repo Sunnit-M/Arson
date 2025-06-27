@@ -16,20 +16,22 @@ public class BannedData { ;
     public static HashMap<String, BannedPlayer> loadBannedData() {
         HashMap<String, BannedPlayer> bannedPlayers = JsonSaveHandler.GetBannedPlayers();
 
-        for (String playerUUID : bannedPlayers.keySet()) {
-            if(bannedPlayers.containsKey(playerUUID)){
-                BannedPlayer bannedPlayer = bannedPlayers.get(playerUUID);
-                LocalDateTime now = LocalDateTime.now();
+        if (bannedPlayers != null) {
+            for (String playerUUID : bannedPlayers.keySet()) {
+                if(bannedPlayers.containsKey(playerUUID)){
+                    BannedPlayer bannedPlayer = bannedPlayers.get(playerUUID);
+                    LocalDateTime now = LocalDateTime.now();
 
-                Duration timeSinceBan = Duration.between(bannedPlayer.BanDate, now);
+                    Duration timeSinceBan = Duration.between(bannedPlayer.BanDate, now);
 
-                if(bannedPlayer.timeless || timeSinceBan.getSeconds() < bannedPlayer.BanSeconds) {
-                    if(!bannedPlayer.timeless){
-                        bannedPlayers.get(playerUUID).BanSeconds -= timeSinceBan.getSeconds();
-                        bannedPlayers.get(playerUUID).BanDate = now;
+                    if(bannedPlayer.timeless || timeSinceBan.getSeconds() < bannedPlayer.BanSeconds) {
+                        if(!bannedPlayer.timeless){
+                            bannedPlayers.get(playerUUID).BanSeconds -= timeSinceBan.getSeconds();
+                            bannedPlayers.get(playerUUID).BanDate = now;
+                        }
+                    } else {
+                        bannedPlayers.remove(playerUUID);
                     }
-                } else {
-                    bannedPlayers.remove(playerUUID);
                 }
             }
         }
