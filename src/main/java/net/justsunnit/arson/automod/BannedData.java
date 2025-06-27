@@ -14,26 +14,32 @@ import java.util.UUID;
 public class BannedData { ;
 
     public static HashMap<String, BannedPlayer> loadBannedData() {
-        return JsonSaveHandler.GetBannedPlayers();
+        HashMap<String, BannedPlayer> bannedPlayers = JsonSaveHandler.GetBannedPlayers();
+
+        for (String playerUUID : bannedPlayers.keySet()) {
+            if(bannedPlayers.containsKey(playerUUID)){
+                BannedPlayer bannedPlayer = bannedPlayers.get(playerUUID);
+                LocalDateTime now = LocalDateTime.now();
+
+                Duration timeSinceBan = Duration.between(bannedPlayer.BanDate, now);
+
+                if(bannedPlayer.timeless || timeSinceBan.getSeconds() < bannedPlayer.BanSeconds) {
+                    if(!bannedPlayer.timeless){
+                        bannedPlayers.get(playerUUID).BanSeconds -= timeSinceBan.getSeconds();
+                        bannedPlayers.get(playerUUID).BanDate = now;
+                    }
+                } else {
+                    bannedPlayers.remove(playerUUID);
+                }
+            }
+        }
+        JsonSaveHandler.SaveBannedPlayerData(bannedPlayers);
+        return bannedPlayers;
     }
 
     public static boolean checkPlayer(String playerUUID) {
         HashMap<String, BannedPlayer> bannedPlayers = loadBannedData();
-        if(bannedPlayers.containsKey(playerUUID)){
-            BannedPlayer bannedPlayer = bannedPlayers.get(playerUUID);
-            LocalDateTime now = LocalDateTime.now();
-
-            Duration timeSinceBan = Duration.between(bannedPlayer.BanDate, now);
-
-            if(bannedPlayer.timeless || timeSinceBan.getSeconds() < bannedPlayer.BanSeconds) {
-                return true;
-            } else {
-                bannedPlayers.remove(playerUUID);
-                JsonSaveHandler.SaveBannedPlayerData(bannedPlayers);
-                return false;
-            }
-        }
-        return false;
+        return bannedPlayers.containsKey(playerUUID);
     }
 
     public static BannedPlayer getBannedPlayer(String playerUUID) {
