@@ -17,8 +17,6 @@ public class Arson implements ModInitializer {
 
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-	public static final String CommandStarter = "arson";
-	public static final Identifier QUERY_PACKET_ID = Identifier.of(MOD_ID, "query");
 	public static ConfigManger config;
 
 	public static MinecraftServer server;

@@ -13,21 +13,11 @@ base {
 sourceSets {
     main {
         java {
-            srcDirs = ['src/main/java']
+            srcDirs = ['src/main/java', 'src/client/java']
         }
         resources {
-            srcDirs = ['src/main/resources']
+            srcDirs = ['src/main/resources', 'src/client/resources']
         }
-    }
-    client {
-        java {
-            srcDirs = ['src/client/java']
-        }
-        resources {
-            srcDirs = ['src/client/resources']
-        }
-        compileClasspath += main.output + configurations.compileClasspath
-        runtimeClasspath += main.output + configurations.runtimeClasspath
     }
 }
 

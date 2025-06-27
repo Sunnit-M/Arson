@@ -3,12 +3,7 @@
 	"package": "net.justsunnit.arson.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ModEntityDataSaver",
-		"BanMixins.BanCommandMixin",
-		"BanMixins.UnBanCommandMixin",
-		"BanMixins.BanIPCommandMixin",
-		"BanMixins.UnBanIPCommandMixin",
-		"BanMixins.BanListCommandMixin"
+		"ModEntityDataSaver"
 	],
 	"injectors": {
 		"defaultRequire": 1

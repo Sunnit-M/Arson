@@ -10,6 +10,5 @@ public class EventRegistries {
 
         ServerPlayConnectionEvents.JOIN.register(PlayerJoinLeaveEvents::playerJoin);
         ServerPlayConnectionEvents.DISCONNECT.register(PlayerJoinLeaveEvents::playerLeave);
-        ServerLoginConnectionEvents.QUERY_START.register(PlayerQueryEvent::queryStart);
     }
 }
