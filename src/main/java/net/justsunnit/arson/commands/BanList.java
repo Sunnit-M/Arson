@@ -34,7 +34,7 @@ public class BanList {
                 for (String uuid : bannedPlayers.keySet()) {
                     BannedPlayer player = bannedPlayers.get(uuid);
                     banList.append(player.Name).append(" - Reason: ").append(player.Reason).append("\n")
-                            .append("   For").append((player.timeless ? "inf" : TextFormatter.formatDuration(player.BanSeconds)))
+                            .append("   For").append((player.timeless ? "inf" : TextFormatter.formatDuration(player.BanSeconds)));
                 }
             }
 
