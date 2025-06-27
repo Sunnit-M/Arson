@@ -11,5 +11,6 @@ public class CommandRegistry {
         CommandRegistrationCallback.EVENT.register(PermBan::register);
         CommandRegistrationCallback.EVENT.register(UnBan::register);
         CommandRegistrationCallback.EVENT.register(BanList::register);
+        CommandRegistrationCallback.EVENT.register(MainteneceCommand::register);
     }
 }

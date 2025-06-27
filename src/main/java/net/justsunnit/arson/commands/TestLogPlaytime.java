@@ -15,7 +15,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 
 public class TestLogPlaytime {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess dedicated, CommandManager.RegistrationEnvironment env) {
-        dispatcher.register(CommandManager.literal(Arson.CommandStarter)
+        dispatcher.register(CommandManager.literal("arson")
                 .then(CommandManager.literal("LogPlaytime").requires(source ->
                                 !source.isExecutedByPlayer() || Arson.config.isAdmin(source.getName()) || source.hasPermissionLevel(2))
                         .executes(TestLogPlaytime::run)));

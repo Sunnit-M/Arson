@@ -10,8 +10,6 @@ config:
     defaultMessage: "Welcome to the server! Enjoy your stay!"
     maintenanceMessage: "The server is currently under maintenance. Please check back later."
 
-  joinBuffer:
-    buffer: 30
-  whitelists:
-    Admins:
-      - "Sunnit_m"
+  maintenanceMode: false
+  admins:
+    - "Notch"

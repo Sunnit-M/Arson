@@ -20,6 +20,17 @@ import static net.justsunnit.arson.util.PlaytimeLogger.*;
 
 public class PlayerJoinLeaveEvents {
     public static void playerJoin(ServerPlayNetworkHandler handler, PacketSender sender, MinecraftServer server){
+        if(!JsonSaveHandler.getAllPlayers().containsKey(handler.getPlayer().getName().toString())){
+            JsonSaveHandler.AddPlayerToAllPlayers(handler.player.getName().toString(), handler.getPlayer().getUuidAsString());
+            Arson.LOGGER.info("[ArsonUtils] New player detected: " + handler.getPlayer().getName().getLiteralString() + ". Added to all players list.");
+        }
+
+        if(Arson.config.isMaintenanceMode()){
+            if(!Arson.config.isAdmin(handler.player.getName().toString())){
+                handler.disconnect(Text.literal("[ArsonUtils] Server is in maintenance mode. Please try again later.").styled(style -> style.withBold(true).withColor(Formatting.RED)));
+                return;
+            }
+        }
 
         if(BannedData.checkPlayer(handler.getPlayer().getUuidAsString())){
             BannedPlayer ban = BannedData.getBannedPlayer(handler.getPlayer().getUuidAsString());

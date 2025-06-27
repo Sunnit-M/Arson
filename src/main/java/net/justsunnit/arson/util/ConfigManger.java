@@ -48,10 +48,21 @@ public class ConfigManger {
         return configData;
     }
 
+    public ArrayList<String> getAdmins() {
+        LoadConfig();
+        return (ArrayList<String>) configData.getOrDefault("admins", new ArrayList<>());
+    }
+
     public boolean isAdmin(String playerName) {
         LoadConfig();
-        ArrayList<String> admins = (ArrayList<String>) configData.getOrDefault("config.admins", new ArrayList<String>());
+        ArrayList<String> admins = (ArrayList<String>) configData.getOrDefault("admins", new ArrayList<String>());
         return admins.contains(playerName);
+    }
+
+    public void setMaintenanceMode(boolean enabled) {
+        Map<String, Object> config = Arson.config.GetConfig();
+        config.put("config.maintenanceMode", enabled);
+        Arson.config.OverwriteConfig(config);
     }
 
     public void OverwriteConfig(Map<String, Object> newConfig) {
@@ -65,5 +76,10 @@ public class ConfigManger {
         for(Runnable r : OnUpdateSubscribers){
             r.run();
         }
+    }
+
+    public boolean isMaintenanceMode() {
+        LoadConfig();
+        return (boolean) configData.getOrDefault("config.maintenanceMode", false);
     }
 }

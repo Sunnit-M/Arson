@@ -13,7 +13,7 @@ import net.minecraft.world.GameMode;
 
 public class SpectateReturn {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess dedicated, CommandManager.RegistrationEnvironment environment) {
-        dispatcher.register(CommandManager.literal(Arson.CommandStarter)
+        dispatcher.register(CommandManager.literal("arson")
                 .then(CommandManager.literal("SpectateReturn").requires(source ->
                                 !source.isExecutedByPlayer() || Arson.config.isAdmin(source.getName()) || source.hasPermissionLevel(2))
                         .executes(SpectateReturn::run)));

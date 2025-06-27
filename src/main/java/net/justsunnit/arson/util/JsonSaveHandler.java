@@ -19,24 +19,14 @@ public class JsonSaveHandler {
     public static final String Playtime_FILE = "Arson_Config/Playtime/player_playtime.json";
     public static final File BANNED_PLAYERS_FILE = new File(ConfigManger.CONFIG_FOLER_PATH.toString()).toPath().
             resolve("banned_players.json").toFile();
+    public static final File ALL_PLAYERS_FILE = new File(ConfigManger.CONFIG_FOLER_PATH.toString()).toPath().
+            resolve("all_players.json").toFile();
 
     private static final Gson GSON = new GsonBuilder()
             .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
             .setPrettyPrinting()
             .create();
 
-    public static void LoadBannedPlayers() {
-        if (!BANNED_PLAYERS_FILE.exists()) {
-            try {
-                Files.createDirectories(BANNED_PLAYERS_FILE.getParentFile().toPath());
-                if(BANNED_PLAYERS_FILE.createNewFile()){
-                    throw new IOException("[Arson] Failed to create banned players file");
-                }
-            } catch (IOException e) {
-                Arson.LOGGER.error("[Arson] Failed to create banned players file", e);
-            }
-        }
-    }
 
     public static void initializeJsonData() {
         if (!new File(DateTimestamp_FILE).exists()) {
@@ -67,6 +57,17 @@ public class JsonSaveHandler {
                 BANNED_PLAYERS_FILE.createNewFile();
                 FileWriter writer = new FileWriter(BANNED_PLAYERS_FILE);
                 writer.write(GSON.toJson(new HashMap<String, BannedPlayer>()));
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(!ALL_PLAYERS_FILE.exists()) {
+            try {
+                ALL_PLAYERS_FILE.createNewFile();
+                FileWriter writer = new FileWriter(ALL_PLAYERS_FILE);
+                writer.write(GSON.toJson(new HashMap<String, String>()));
                 writer.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -107,6 +108,33 @@ public class JsonSaveHandler {
         } catch (IOException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public static HashMap<String, String> getAllPlayers() {
+        try {
+            FileReader reader = new FileReader(ALL_PLAYERS_FILE);
+            HashMap<String, String> data = GSON.fromJson(reader, new TypeToken<HashMap<String, String>>() {}.getType());
+            reader.close();
+            return data;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static void AddPlayerToAllPlayers(String Player, String PlayerUUID) {
+        try {
+            HashMap<String, String> allPlayers = getAllPlayers();
+            if (allPlayers == null) {
+                allPlayers = new HashMap<>();
+            }
+            allPlayers.put(Player, PlayerUUID);
+            FileWriter writer = new FileWriter(ALL_PLAYERS_FILE);
+            writer.write(GSON.toJson(allPlayers));
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
