@@ -14,18 +14,16 @@ config:
 
   joinBuffer:
     buffer: 30
-    message: "You need to wait a little before attempting to join the server again."
-
   whitelists:
     Admins:
       - "Sunnit_m"
 
-  Mods:
+  mods:
     enabled: true
-    noHandshakeMessage: "Handshake failed, please update your mods. If the problem persists, contact an admin."
+    handshakeBan: 300
     handshakeTolerance: 5
     whitelistedMods:
-      Required:
+      required:
         - "modid:modname"
-      Optional:
+      optional:
         - "modid:modname"

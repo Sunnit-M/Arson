@@ -3,6 +3,7 @@ package net.justsunnit.arson.event;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.justsunnit.arson.Arson;
 import net.justsunnit.arson.automod.BannedData;
+import net.justsunnit.arson.automod.Handshake;
 import net.justsunnit.arson.objects.BannedPlayer;
 import net.justsunnit.arson.objects.PlayerPlaytimeData;
 import net.justsunnit.arson.util.JsonSaveHandler;
@@ -30,11 +31,32 @@ public class PlayerJoinLeaveEvents {
             return;
         }
 
+        Thread thread = new Thread(() -> {
+            try {
+                Thread.sleep((long)Arson.config.GetConfig().getOrDefault("config.mods.handshakeTolerance", 5000L));
+
+                if(Handshake.handshakeMap.containsKey(handler.getPlayer().getUuidAsString())){
+                    BannedPlayer Ban = new BannedPlayer(
+                            handler.getPlayer().getName().toString(),
+                            "[Automod] Handshake Timeout",
+                            LocalDateTime.now(),
+                            (long) Arson.config.GetConfig().getOrDefault("config.mods.handshakeBan", 300),
+                            false
+                    );
+
+                    BannedData.banPlayer(Ban, handler.getPlayer().getUuidAsString());
+                }
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
         playerLoginTimeStamp.put(handler.getPlayer().getName().getLiteralString(), LocalDateTime.now());
         handler.getPlayer().sendMessage(Text.literal("[ArsonUtils] Logged Login Time: " + LocalDateTime.now().toString()).styled(style -> style.withBold(true).withColor(Formatting.RED)), false);
     }
 
     public static void playerLeave(ServerPlayNetworkHandler handler, MinecraftServer server){
+        Handshake.removeHandshake(handler.getPlayer().getUuidAsString());
         Duration timeSpent = Duration.between(playerLoginTimeStamp.getOrDefault(handler.getPlayer().getName().toString(),LocalDateTime.now()), LocalDateTime.now());
         PlayerPlaytimeData data = (PlayerPlaytimeData) JsonSaveHandler.GetPlayerPlaytimeData().getOrDefault(handler.getPlayer().getName().toString(), new PlayerPlaytimeData());
         data.AddPlaytime(timeSpent.toSeconds());
