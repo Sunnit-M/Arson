@@ -43,28 +43,6 @@ public class ConfigManger {
         }
     }
 
-    public ArrayList<String> ModsAllowed(String[] mods) {
-        Map<String, Object> allowedMods =  (Map<String, Object>) configData.get("config.mods.whitelistedMods");
-        ArrayList<String> optional = (ArrayList<String>) allowedMods.get("optional");
-        ArrayList<String> required = (ArrayList<String>) allowedMods.get("required");
-
-        ArrayList<String> illegalMods = new ArrayList<>();
-
-        for(String requiredMod : required) {
-            if(!List.of(mods).contains(requiredMod)) {
-                illegalMods.add(requiredMod);
-            }
-        }
-
-        for(String optionalMod : optional) {
-            if(!List.of(mods).contains(optionalMod)) {
-                illegalMods.add(optionalMod);
-            }
-        }
-
-        return illegalMods;
-    }
-
     public Map<String,Object> GetConfig() {
         LoadConfig();
         return configData;
