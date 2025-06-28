@@ -30,7 +30,7 @@ public class MainteneceCommand {
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandRegistryAccess, CommandManager.RegistrationEnvironment registrationEnvironment) {
         dispatcher.register(CommandManager.literal("arson")
-                .then(CommandManager.literal("maintenece")
+                .then(CommandManager.literal("maintenance")
                         .requires(source -> !source.isExecutedByPlayer() ||
                                 source.hasPermissionLevel(4) || Arson.config.isAdmin(source.getPlayer().getName().getLiteralString()))
                         .then(CommandManager.argument("type" ,StringArgumentType.greedyString()).suggests((context, builder) ->
