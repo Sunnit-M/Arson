@@ -30,6 +30,10 @@ public class PlayerJoinLeaveEvents {
                 handler.disconnect(Text.literal("[ArsonUtils] Server is in maintenance mode. Please try again later.").styled(style -> style.withBold(true).withColor(Formatting.RED)));
                 return;
             }
+            else{
+                handler.getPlayer().sendMessage(Text.literal("[ArsonUtils] You are an admin. Maintenance mode is currently active.").styled(style -> style.withBold(true).withColor(Formatting.YELLOW)), false);
+                Arson.LOGGER.info("[ArsonUtils] Admin " + handler.getPlayer().getName().getLiteralString() + " has joined during maintenance mode.");
+            }
         }
 
         if(BannedData.checkPlayer(handler.getPlayer().getUuidAsString())){
