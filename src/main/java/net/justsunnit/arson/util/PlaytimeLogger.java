@@ -52,17 +52,23 @@ public class PlaytimeLogger {
     }
 
     public static PlayerPlaytimeData getPlayerPlaytimeData(String playerName) {
-        PlayerPlaytimeData data = (PlayerPlaytimeData) JsonSaveHandler.GetPlayerPlaytimeData().getOrDefault(playerName, new PlayerPlaytimeData());
-        LocalDateTime login = playerLoginTimeStamp.get(playerName);
-        Duration timeSpent = Duration.between(login != null ? login : LocalDateTime.now(), LocalDateTime.now());
+        try {
+            PlayerPlaytimeData data = (PlayerPlaytimeData) JsonSaveHandler.GetPlayerPlaytimeData().get(playerName);
+            LocalDateTime login = playerLoginTimeStamp.get(playerName);
+            Duration timeSpent = Duration.between(login != null ? login : LocalDateTime.now(), LocalDateTime.now());
 
-        data.AddPlaytime(timeSpent.toSeconds());
+            data.AddPlaytime(timeSpent.toSeconds());
 
-        playerLoginTimeStamp.remove(playerName);
-        playerLoginTimeStamp.put(playerName, LocalDateTime.now());
+            playerLoginTimeStamp.remove(playerName);
+            playerLoginTimeStamp.put(playerName, LocalDateTime.now());
 
-        JsonSaveHandler.SavePlayerPlaytimeData(data, playerName);
+            JsonSaveHandler.SavePlayerPlaytimeData(data, playerName);
 
-        return data;
+            return data;
+        }
+        catch (Exception e) {
+            Arson.LOGGER.error("[ArsonUtils] Failed to get playtime data for player: " + playerName, e);
+            return new PlayerPlaytimeData();
+        }
     }
 }
