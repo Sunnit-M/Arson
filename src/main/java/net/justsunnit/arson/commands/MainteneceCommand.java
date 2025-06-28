@@ -32,7 +32,7 @@ public class MainteneceCommand {
         dispatcher.register(CommandManager.literal("arson")
                 .then(CommandManager.literal("maintenece")
                         .requires(source -> !source.isExecutedByPlayer() ||
-                                source.hasPermissionLevel(2) || Arson.config.isAdmin(source.getName()))
+                                source.hasPermissionLevel(2) || Arson.config.isAdmin(source.getPlayer().getName().getLiteralString()))
                         .then(CommandManager.argument("type" ,StringArgumentType.greedyString()).suggests((context, builder) ->
                                 builder.suggest("on").suggest("off").suggest("status").buildFuture())
                                 .executes(MainteneceCommand::run))));

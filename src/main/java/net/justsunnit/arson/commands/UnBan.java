@@ -19,7 +19,7 @@ public class UnBan {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess dedicated, CommandManager.RegistrationEnvironment environment) {
         dispatcher.register(CommandManager.literal("arson")
                 .then(CommandManager.literal("unban").requires(source ->
-                                !source.isExecutedByPlayer() || Arson.config.isAdmin(source.getName()) || source.hasPermissionLevel(2))
+                                !source.isExecutedByPlayer() || Arson.config.isAdmin(source.getPlayer().getName().getLiteralString()) || source.hasPermissionLevel(2))
                 .then(CommandManager.argument("player", GameProfileArgumentType.gameProfile())
                         .executes(UnBan::run))));
     }

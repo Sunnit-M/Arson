@@ -26,13 +26,13 @@ public class WebHookFormatter {
     }
 
     public static void UpdateProfiles() {
-        avatarURL = Arson.config.GetConfig().getOrDefault("config.webhook.avatarUrl","https://cdn.discordapp.com/embed/avatars/index.png").toString();
-        modWebhookUrl = Arson.config.GetConfig().getOrDefault("config.webhook.modWebhookUrl", "").toString();
-        commandWebhookUrl = Arson.config.GetConfig().getOrDefault("config.webhook.commandWebhookUrl", "").toString();
-        playtimeWebhookUrl = Arson.config.GetConfig().getOrDefault("config.webhook.playtimeWebhookUrl", "").toString();
-        PlaytimeUsername = Arson.config.GetConfig().getOrDefault("config.webhook.PlaytimeLoggerUsername","Playtime Logger").toString();
-        CommandUsername = Arson.config.GetConfig().getOrDefault("config.webhook.CommandLoggerUsername","Command Logger").toString();
-        HandshakeUsername = Arson.config.GetConfig().getOrDefault("config.webhook.HandshakeLoggerUsername", "Handshake Logger").toString();
+        avatarURL = Arson.config.GetConfig().getOrDefault("avatarUrl","https://cdn.discordapp.com/embed/avatars/index.png").toString();
+        modWebhookUrl = Arson.config.GetConfig().getOrDefault("modWebhookUrl", "").toString();
+        commandWebhookUrl = Arson.config.GetConfig().getOrDefault("commandWebhookUrl", "").toString();
+        playtimeWebhookUrl = Arson.config.GetConfig().getOrDefault("playtimeWebhookUrl", "").toString();
+        PlaytimeUsername = Arson.config.GetConfig().getOrDefault("PlaytimeLoggerUsername","Playtime Logger").toString();
+        CommandUsername = Arson.config.GetConfig().getOrDefault("CommandLoggerUsername","Command Logger").toString();
+        HandshakeUsername = Arson.config.GetConfig().getOrDefault("HandshakeLoggerUsername", "Handshake Logger").toString();
     }
 
     public static void SendCommandHook(String content) {

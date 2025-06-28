@@ -51,5 +51,18 @@ public class PlaytimeLogger {
         WebHookFormatter.SendPlaytimeMonthLog();
     }
 
+    public static PlayerPlaytimeData getPlayerPlaytimeData(String playerName) {
+        PlayerPlaytimeData data = (PlayerPlaytimeData) JsonSaveHandler.GetPlayerPlaytimeData().getOrDefault(playerName, new PlayerPlaytimeData());
+        LocalDateTime login = playerLoginTimeStamp.get(playerName);
+        Duration timeSpent = Duration.between(login != null ? login : LocalDateTime.now(), LocalDateTime.now());
 
+        data.AddPlaytime(timeSpent.toSeconds());
+
+        playerLoginTimeStamp.remove(playerName);
+        playerLoginTimeStamp.put(playerName, LocalDateTime.now());
+
+        JsonSaveHandler.SavePlayerPlaytimeData(data, playerName);
+
+        return data;
+    }
 }

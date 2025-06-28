@@ -20,7 +20,7 @@ import static net.justsunnit.arson.util.PlaytimeLogger.*;
 
 public class PlayerJoinLeaveEvents {
     public static void playerJoin(ServerPlayNetworkHandler handler, PacketSender sender, MinecraftServer server){
-        if(!JsonSaveHandler.getAllPlayers().containsKey(handler.getPlayer().getName().toString())){
+        if(!JsonSaveHandler.getAllPlayers().containsKey(handler.getPlayer().getName().getLiteralString())){
             JsonSaveHandler.AddPlayerToAllPlayers(handler.player.getName().toString(), handler.getPlayer().getUuidAsString());
             Arson.LOGGER.info("[ArsonUtils] New player detected: " + handler.getPlayer().getName().getLiteralString() + ". Added to all players list.");
         }
@@ -46,10 +46,10 @@ public class PlayerJoinLeaveEvents {
     }
 
     public static void playerLeave(ServerPlayNetworkHandler handler, MinecraftServer server){
-        Duration timeSpent = Duration.between(playerLoginTimeStamp.getOrDefault(handler.getPlayer().getName().toString(),LocalDateTime.now()), LocalDateTime.now());
-        PlayerPlaytimeData data = (PlayerPlaytimeData) JsonSaveHandler.GetPlayerPlaytimeData().getOrDefault(handler.getPlayer().getName().toString(), new PlayerPlaytimeData());
+        Duration timeSpent = Duration.between(playerLoginTimeStamp.getOrDefault(handler.getPlayer().getName().getLiteralString(),LocalDateTime.now()), LocalDateTime.now());
+        PlayerPlaytimeData data = (PlayerPlaytimeData) JsonSaveHandler.GetPlayerPlaytimeData().getOrDefault(handler.getPlayer().getName().getLiteralString(), new PlayerPlaytimeData());
         data.AddPlaytime(timeSpent.toSeconds());
-        JsonSaveHandler.SavePlayerPlaytimeData(data, handler.getPlayer().getName().toString());
+        JsonSaveHandler.SavePlayerPlaytimeData(data, handler.getPlayer().getName().getLiteralString());
         Arson.LOGGER.info("[ArsonUtils] Playtime for " + handler.getPlayer().getName().getLiteralString() + " has been saved.");
 
         playerLoginTimeStamp.remove(handler.getPlayer().getName().getLiteralString());
@@ -57,7 +57,7 @@ public class PlayerJoinLeaveEvents {
         if(BannedData.checkPlayer(handler.getPlayer().getUuidAsString())) return;
 
         BannedPlayer bannedPlayer = new BannedPlayer(
-                handler.getPlayer().getName().toString(),
+                handler.getPlayer().getName().getLiteralString(),
                 "[Automod] Join/Leave Buffer",
                 LocalDateTime.now(),
                 15L,

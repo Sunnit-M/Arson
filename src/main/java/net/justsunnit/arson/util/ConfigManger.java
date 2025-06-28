@@ -61,7 +61,7 @@ public class ConfigManger {
 
     public void setMaintenanceMode(boolean enabled) {
         Map<String, Object> config = Arson.config.GetConfig();
-        config.put("config.maintenanceMode", enabled);
+        config.put("maintenanceMode", enabled);
         Arson.config.OverwriteConfig(config);
     }
 
@@ -80,6 +80,6 @@ public class ConfigManger {
 
     public boolean isMaintenanceMode() {
         LoadConfig();
-        return (boolean) configData.getOrDefault("config.maintenanceMode", false);
+        return (boolean) configData.getOrDefault("maintenanceMode", false);
     }
 }

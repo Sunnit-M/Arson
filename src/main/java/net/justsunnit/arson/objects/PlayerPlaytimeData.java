@@ -17,6 +17,15 @@ public class PlayerPlaytimeData{
         this.TotalPlaytime += playtime;
     }
 
+    public String getFormattedPlaytime(){
+        long totalSeconds = this.TotalPlaytime / 1000;
+        long hours = totalSeconds / 3600;
+        long minutes = (totalSeconds % 3600) / 60;
+        long seconds = totalSeconds % 60;
+
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+    }
+
     public void ResetWeekPlaytime(){
         this.WeekPlaytime = 0;
     }
