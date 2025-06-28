@@ -22,7 +22,7 @@ public class PermBanCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess dedicated, CommandManager.RegistrationEnvironment environment) {
         dispatcher.register(CommandManager.literal("arson")
                 .then(CommandManager.literal("permanentBan").requires(source ->
-                                !source.isExecutedByPlayer() || Arson.config.isAdmin(source.getPlayer().getName().getLiteralString()) || source.hasPermissionLevel(4))
+                                !source.isExecutedByPlayer() || source.hasPermissionLevel(4))
                         .then(CommandManager.argument("player", GameProfileArgumentType.gameProfile())
                                 .then(CommandManager.argument("reason", StringArgumentType.greedyString())
                                 .executes(PermBanCommand::run)))));
