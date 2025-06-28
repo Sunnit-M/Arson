@@ -39,7 +39,19 @@ public class MainteneceCommand {
     }
 
     private static int run(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
-        String type = StringArgumentType.getString(context, "type").toLowerCase();
+        String _type = StringArgumentType.getString(context, "type").toLowerCase();
+        String type;
+
+        if (_type.contains("on")) {
+            type = "on";
+        } else if (_type.contains("off")) {
+            type = "off";
+        } else if (_type.contains("status")) {
+            type = "status";
+        } else {
+            context.getSource().sendError(Text.of("[ArsonUtils] Invalid argument. Use 'on', 'off', or 'status'."));
+            return 0;
+        }
 
         switch (type) {
             case "on":

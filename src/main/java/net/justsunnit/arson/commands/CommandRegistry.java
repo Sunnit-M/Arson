@@ -4,13 +4,14 @@ import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 
 public class CommandRegistry {
     public static void registerCommands() {
-        CommandRegistrationCallback.EVENT.register(SpectatePlayer::register);
-        CommandRegistrationCallback.EVENT.register(SpectateReturn::register);
-        CommandRegistrationCallback.EVENT.register(TestLogPlaytime::register);
-        CommandRegistrationCallback.EVENT.register(Ban::register);
-        CommandRegistrationCallback.EVENT.register(PermBan::register);
+        CommandRegistrationCallback.EVENT.register(SpectatePlayerCommand::register);
+        CommandRegistrationCallback.EVENT.register(SpectateReturnCommand::register);
+        CommandRegistrationCallback.EVENT.register(TestLogPlaytimeCommand::register);
+        CommandRegistrationCallback.EVENT.register(BanCommand::register);
+        CommandRegistrationCallback.EVENT.register(PermBanCommand::register);
         CommandRegistrationCallback.EVENT.register(UnBan::register);
-        CommandRegistrationCallback.EVENT.register(BanList::register);
+        CommandRegistrationCallback.EVENT.register(BanListCommand::register);
         CommandRegistrationCallback.EVENT.register(MainteneceCommand::register);
+        CommandRegistrationCallback.EVENT.register(PlaytimeCommand::register);
     }
 }

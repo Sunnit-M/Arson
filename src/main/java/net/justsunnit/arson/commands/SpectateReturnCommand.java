@@ -11,12 +11,12 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.world.GameMode;
 
-public class SpectateReturn {
+public class SpectateReturnCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess dedicated, CommandManager.RegistrationEnvironment environment) {
         dispatcher.register(CommandManager.literal("arson")
-                .then(CommandManager.literal("SpectateReturn").requires(source ->
+                .then(CommandManager.literal("SpectateReturnCommand").requires(source ->
                                 !source.isExecutedByPlayer() || Arson.config.isAdmin(source.getName()) || source.hasPermissionLevel(2))
-                        .executes(SpectateReturn::run)));
+                        .executes(SpectateReturnCommand::run)));
     }
 
     private static int run(CommandContext<ServerCommandSource> context){

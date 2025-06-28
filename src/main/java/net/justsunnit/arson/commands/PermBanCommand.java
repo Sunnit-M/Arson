@@ -8,6 +8,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.justsunnit.arson.Arson;
 import net.justsunnit.arson.automod.BannedData;
 import net.justsunnit.arson.objects.BannedPlayer;
+import net.justsunnit.arson.util.WebHookFormatter;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.GameProfileArgumentType;
 import net.minecraft.server.command.CommandManager;
@@ -17,14 +18,14 @@ import net.minecraft.text.Text;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
-public class PermBan {
+public class PermBanCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess dedicated, CommandManager.RegistrationEnvironment environment) {
         dispatcher.register(CommandManager.literal("arson")
                 .then(CommandManager.literal("permanentBan").requires(source ->
                                 !source.isExecutedByPlayer() || Arson.config.isAdmin(source.getName()) || source.hasPermissionLevel(2))
                         .then(CommandManager.argument("player", GameProfileArgumentType.gameProfile())
                                 .then(CommandManager.argument("reason", StringArgumentType.greedyString())
-                                .executes(PermBan::run)))));
+                                .executes(PermBanCommand::run)))));
     }
 
     public static int run(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
@@ -39,6 +40,8 @@ public class PermBan {
 
             context.getSource().sendMessage(Text.literal("[ArsonUtils] Player " + player.getName() + " has been permanently banned. Reason: " + data.Reason.toString()).styled(style -> style.withBold(true)));
 
+
+            WebHookFormatter.SendCommandHook("[ArsonUtils] " + context.getSource().getName() + " has permanently banned " + player.getName() + ". Reason: " + data.Reason);
             return 1;
         }
         catch (Exception e) {

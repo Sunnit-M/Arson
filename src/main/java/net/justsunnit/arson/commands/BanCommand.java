@@ -9,18 +9,18 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.justsunnit.arson.Arson;
 import net.justsunnit.arson.automod.BannedData;
 import net.justsunnit.arson.objects.BannedPlayer;
+import net.justsunnit.arson.util.WebHookFormatter;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.command.argument.GameProfileArgumentType;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
 
-public class Ban {
+public class BanCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess dedicated, CommandManager.RegistrationEnvironment environment) {
         dispatcher.register((CommandManager.literal("arson")
                 .then(CommandManager.literal("timedBan").requires(source ->  !source.isExecutedByPlayer() ||
@@ -31,7 +31,7 @@ public class Ban {
                 .then(CommandManager.argument("minutes", IntegerArgumentType.integer(0))
                 .then(CommandManager.argument("seconds", IntegerArgumentType.integer(1))
                 .then(CommandManager.argument("reason", StringArgumentType.greedyString())
-                .executes(Ban::run))))))))));
+                .executes(BanCommand::run))))))))));
     }
 
     public static int run(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
@@ -54,6 +54,8 @@ public class Ban {
             BannedData.banPlayer(data, player.getId().toString());
 
             context.getSource().sendMessage(Text.literal("[ArsonUtils] Player " + player.getName() + " has been banned for: " + data.BanSeconds + " seconds. Reason: " + data.Reason.toString()).styled(style -> style.withBold(true)));
+
+            WebHookFormatter.SendCommandHook("[ArsonUtils] " + context.getSource().getName() + " has banned " + player.getName() + " for " + data.BanSeconds + " seconds. Reason: " + data.Reason);
 
             return 1;
         }

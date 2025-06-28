@@ -14,13 +14,13 @@ import net.minecraft.text.Text;
 
 import java.util.HashMap;
 
-public class BanList {
+public class BanListCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess dedicated, CommandManager.RegistrationEnvironment environment) {
         dispatcher.register(CommandManager.literal("arson")
                 .then(CommandManager.literal("banlist")
                         .requires(source ->
                         !source.isExecutedByPlayer() || Arson.config.isAdmin(source.getName()) || source.hasPermissionLevel(2))
-                .executes(BanList::run)));
+                .executes(BanListCommand::run)));
     }
 
     public static int run(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
