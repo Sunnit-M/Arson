@@ -18,10 +18,9 @@ public class PlayerPlaytimeData{
     }
 
     public String getFormattedPlaytime(){
-        long totalSeconds = this.TotalPlaytime / 1000;
-        long hours = totalSeconds / 3600;
-        long minutes = (totalSeconds % 3600) / 60;
-        long seconds = totalSeconds % 60;
+        long hours = this.TotalPlaytime / 3600;
+        long minutes = (this.TotalPlaytime % 3600) / 60;
+        long seconds = this.TotalPlaytime % 60;
 
         return String.format("%02d:%02d:%02d", hours, minutes, seconds);
     }
