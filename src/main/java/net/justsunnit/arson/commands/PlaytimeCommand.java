@@ -18,7 +18,7 @@ public class PlaytimeCommand {
 
     private static int run(CommandContext<ServerCommandSource> context) {
         try {
-            PlayerPlaytimeData data = PlaytimeLogger.getPlayerPlaytimeData(context.getSource().getPlayer().getName().toString());
+            PlayerPlaytimeData data = PlaytimeLogger.getPlayerPlaytimeData(context.getSource().getPlayer().getName().getLiteralString());
 
             context.getSource().sendMessage(Text.literal("[ArsonUtils] Your playtime: " + data.getFormattedPlaytime())
                     .styled(style -> style.withBold(true)));

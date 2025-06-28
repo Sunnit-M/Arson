@@ -26,7 +26,7 @@ public class PlayerJoinLeaveEvents {
         }
 
         if(Arson.config.isMaintenanceMode()){
-            if(!Arson.config.isAdmin(handler.player.getName().toString())){
+            if(!Arson.config.isAdmin(handler.player.getName().getLiteralString())){
                 handler.disconnect(Text.literal("[ArsonUtils] Server is in maintenance mode. Please try again later.").styled(style -> style.withBold(true).withColor(Formatting.RED)));
                 return;
             }
