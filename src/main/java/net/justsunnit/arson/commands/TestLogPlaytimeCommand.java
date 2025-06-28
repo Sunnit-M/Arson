@@ -12,7 +12,7 @@ public class TestLogPlaytimeCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess dedicated, CommandManager.RegistrationEnvironment env) {
         dispatcher.register(CommandManager.literal("arson")
                 .then(CommandManager.literal("LogPlaytime").requires(source ->
-                                !source.isExecutedByPlayer() || Arson.config.isAdmin(source.getPlayer().getName().getLiteralString()) || source.hasPermissionLevel(2))
+                                !source.isExecutedByPlayer()  || source.hasPermissionLevel(4))
                         .executes(TestLogPlaytimeCommand::run)));
     }
 
