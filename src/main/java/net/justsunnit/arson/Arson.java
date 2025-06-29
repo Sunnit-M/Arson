@@ -8,7 +8,6 @@ import net.justsunnit.arson.commands.CommandRegistry;
 import net.justsunnit.arson.event.*;
 import net.justsunnit.arson.util.*;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,6 +34,7 @@ public class Arson implements ModInitializer {
 		CommandRegistry.registerCommands();
 
 		ServerLifecycleEvents.SERVER_STARTED.register(s -> {
+			s.setMotd(config.isMaintenanceMode() ? (String) config.GetConfig().get("maintenanceMessage") : (String) config.GetConfig().get("defaultMessage"));
 			server = s;
 		});
 

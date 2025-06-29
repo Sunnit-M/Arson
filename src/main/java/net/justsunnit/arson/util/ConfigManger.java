@@ -63,6 +63,8 @@ public class ConfigManger {
         Map<String, Object> config = Arson.config.GetConfig();
         config.put("maintenanceMode", enabled);
         Arson.config.OverwriteConfig(config);
+
+        Arson.server.setMotd(enabled ? (String) config.get("maintenanceMessage") : (String) config.get("defaultMessage"));
     }
 
     public void OverwriteConfig(Map<String, Object> newConfig) {
