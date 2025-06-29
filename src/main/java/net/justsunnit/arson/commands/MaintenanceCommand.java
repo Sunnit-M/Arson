@@ -1,32 +1,23 @@
 package net.justsunnit.arson.commands;
 
-import com.mojang.authlib.GameProfile;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.sun.jdi.connect.Connector;
 import net.justsunnit.arson.Arson;
-import net.justsunnit.arson.automod.BannedData;
-import net.justsunnit.arson.objects.BannedPlayer;
 import net.justsunnit.arson.util.ConfigManger;
 import net.justsunnit.arson.util.CountdownBuilder;
 import net.justsunnit.arson.util.JsonSaveHandler;
 import net.minecraft.command.CommandRegistryAccess;
-import net.minecraft.command.argument.EnumArgumentType;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
-import net.minecraft.util.UserCache;
 
-import javax.naming.Context;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MainteneceCommand {
+public class MaintenanceCommand {
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandRegistryAccess, CommandManager.RegistrationEnvironment registrationEnvironment) {
         dispatcher.register(CommandManager.literal("arson")
@@ -35,7 +26,7 @@ public class MainteneceCommand {
                                 source.hasPermissionLevel(4) || Arson.config.isAdmin(source.getPlayer().getName().getLiteralString()))
                         .then(CommandManager.argument("type" ,StringArgumentType.greedyString()).suggests((context, builder) ->
                                 builder.suggest("on").suggest("off").suggest("status").buildFuture())
-                                .executes(MainteneceCommand::run))));
+                                .executes(MaintenanceCommand::run))));
     }
 
     private static int run(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
