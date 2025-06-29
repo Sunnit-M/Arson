@@ -10,8 +10,8 @@ import net.minecraft.text.Text;
 public class HelpCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandRegistryAccess, CommandManager.RegistrationEnvironment registrationEnvironment) {
         dispatcher.register(CommandManager.literal("arson")
-                .then(CommandManager.literal("help"))
-                .executes(HelpCommand::run));
+                .then(CommandManager.literal("help")
+                .executes(HelpCommand::run)));
     }
 
     private static int run(CommandContext<ServerCommandSource> context) {
@@ -28,7 +28,7 @@ public class HelpCommand {
                 /arson return - Returns to your position before spectating (Only Mods)\s
                 /arson playtime - Show your playtime (All)\s
                 /arson maintenance <on, off, status> - Toggle maintenance mode (Only Ops)\s
-                /arson\s"""), false);
+               """), false);
 
         return 1;
     }
