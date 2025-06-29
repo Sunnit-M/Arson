@@ -37,6 +37,21 @@ public class Arson implements ModInitializer {
 			server = s;
 		});
 
+		Thread playtimeLoggerThread = new Thread(() -> {
+			while (true) {
+                try {
+                    Thread.sleep(1000 * 60 * 60);
+					PlaytimeLogger.UpdateTimeStamps();
+
+                } catch (InterruptedException e) {
+                    LOGGER.warn("[Arson] Playtime logger thread interrupted", e);
+					break;
+                }
+            }
+		});
+
+		playtimeLoggerThread.start();
+
 		LOGGER.info("[Arson] Initialized");
 	}
 }
