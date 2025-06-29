@@ -14,5 +14,6 @@ public class CommandRegistry {
         CommandRegistrationCallback.EVENT.register(MaintenanceCommand::register);
         CommandRegistrationCallback.EVENT.register(PlaytimeCommand::register);
         CommandRegistrationCallback.EVENT.register(SetMotdCommand::register);
+        CommandRegistrationCallback.EVENT.register(HelpCommand::register);
     }
 }
