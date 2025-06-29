@@ -19,6 +19,19 @@ public class Arson implements ModInitializer {
 
 	public static MinecraftServer server;
 
+	public Thread playtimeLoggerThread = new Thread(() -> {
+		while (true) {
+			try {
+				Thread.sleep(1000 * 60 * 60);
+				PlaytimeLogger.UpdateTimeStamps();
+
+			} catch (InterruptedException e) {
+				LOGGER.warn("[Arson] Playtime logger thread interrupted", e);
+				break;
+			}
+		}
+	});
+
 	@Override
 	public void onInitialize() {;
 		DirectoryManager.checkDir();
@@ -37,17 +50,8 @@ public class Arson implements ModInitializer {
 			server = s;
 		});
 
-		Thread playtimeLoggerThread = new Thread(() -> {
-			while (true) {
-                try {
-                    Thread.sleep(1000 * 60 * 60);
-					PlaytimeLogger.UpdateTimeStamps();
-
-                } catch (InterruptedException e) {
-                    LOGGER.warn("[Arson] Playtime logger thread interrupted", e);
-					break;
-                }
-            }
+		ServerLifecycleEvents.SERVER_STOPPED.register(s ->{
+			playtimeLoggerThread.interrupt();
 		});
 
 		playtimeLoggerThread.start();
