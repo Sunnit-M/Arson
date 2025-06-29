@@ -26,7 +26,6 @@ public class Arson implements ModInitializer {
 				PlaytimeLogger.UpdateTimeStamps();
 
 			} catch (InterruptedException e) {
-				LOGGER.warn("[Arson] Playtime logger thread interrupted", e);
 				break;
 			}
 		}

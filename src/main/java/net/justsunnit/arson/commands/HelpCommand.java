@@ -26,7 +26,8 @@ public class HelpCommand {
                 /arson banList - Show the list of banned players (Only Admins)\s
                 /arson spectate <player> - spectates a player (Only Mods)
                 /arson return - Returns to your position before spectating (Only Mods)\s
-                /arson playtime - Show your playtime (All)\s
+                /arson playtime - Show your playtime (All)
+                /arson getPlaytime <player> - Get a player's playtime (Only Admins)\s
                 /arson maintenance <on, off, status> - Toggle maintenance mode (Only Ops)\s
                """), false);
 
