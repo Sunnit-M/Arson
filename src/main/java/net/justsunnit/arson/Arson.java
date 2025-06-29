@@ -1,6 +1,5 @@
 package net.justsunnit.arson;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;

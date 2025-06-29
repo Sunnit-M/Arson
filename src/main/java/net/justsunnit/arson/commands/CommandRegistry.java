@@ -13,5 +13,6 @@ public class CommandRegistry {
         CommandRegistrationCallback.EVENT.register(BanListCommand::register);
         CommandRegistrationCallback.EVENT.register(MaintenanceCommand::register);
         CommandRegistrationCallback.EVENT.register(PlaytimeCommand::register);
+        CommandRegistrationCallback.EVENT.register(SetMotdCommand::register);
     }
 }
