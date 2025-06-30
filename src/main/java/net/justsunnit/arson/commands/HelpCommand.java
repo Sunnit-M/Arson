@@ -29,8 +29,8 @@ public class HelpCommand {
                 /arson playtime - Show your playtime (All)
                 /arson getPlaytime <player> - Get a player's playtime (Only Admins)\s
                 /arson maintenance <on, off, status> - Toggle maintenance mode (Only Ops)\s
+                /arson reload - Reloads the config file (Only ops)
                """), false);
-
         return 1;
     }
 }

@@ -12,7 +12,7 @@ import net.minecraft.util.Formatting;
 public class ConfigReloadCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess commandRegistryAccess, CommandManager.RegistrationEnvironment registrationEnvironment) {
         dispatcher.register(CommandManager.literal("arson")
-                .then(CommandManager.literal("Reload")
+                .then(CommandManager.literal("reload")
                         .requires(source -> !source.isExecutedByPlayer() || source.hasPermissionLevel(4))
                         .executes(ConfigReloadCommand::run)));
     }
@@ -23,7 +23,7 @@ public class ConfigReloadCommand {
             return 1;
         }
         catch (Exception e){
-            context.getSource().sendError(Text.literal("[ArsonUtils] Config Relaod Failed").styled(style -> style.withColor(Formatting.RED)));
+            context.getSource().sendError(Text.literal("[ArsonUtils] Config Reload Failed").styled(style -> style.withColor(Formatting.RED)));
             return 0;
         }
     }
