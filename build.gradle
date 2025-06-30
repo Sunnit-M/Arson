@@ -1,7 +1,6 @@
 plugins {
 	id 'fabric-loom' version '1.10-SNAPSHOT'
 	id 'maven-publish'
-	id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 version = project.mod_version
@@ -32,10 +31,6 @@ repositories {
 	mavenCentral()
 	maven { url("https://jitpack.io")}
 	maven {url("https://oss.sonatype.org/content/repositories/snapshots/")}
-}
-
-shadowJar {
-	configurations = [project.configurations.implementation]
 }
 
 fabricApi {
@@ -69,11 +64,6 @@ processResources {
 
 tasks.withType(JavaCompile).configureEach {
 	it.options.release = 21
-}
-
-remapJar {
-	dependsOn shadowJar
-	input = shadowJar.archiveFile
 }
 
 java {
