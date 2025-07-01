@@ -9,6 +9,7 @@ import net.minecraft.text.Text;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.UUID;
 
 public class BannedData { ;
@@ -17,7 +18,11 @@ public class BannedData { ;
         HashMap<String, BannedPlayer> bannedPlayers = JsonSaveHandler.GetBannedPlayers();
 
         if (bannedPlayers != null) {
-            for (String playerUUID : bannedPlayers.keySet()) {
+            Iterator<String> it = bannedPlayers.keySet().iterator();
+
+
+            while(it.hasNext()) {
+                String playerUUID = it.next();
                 if(bannedPlayers.containsKey(playerUUID)){
                     BannedPlayer bannedPlayer = bannedPlayers.get(playerUUID);
                     LocalDateTime now = LocalDateTime.now();
