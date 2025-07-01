@@ -25,26 +25,6 @@ public class PlayerJoinLeaveEvents {
             Arson.LOGGER.info("[ArsonUtils] New player detected: " + handler.getPlayer().getName().getLiteralString() + ". Added to all players list.");
         }
 
-        if(Arson.config.isMaintenanceMode()){
-            if(!Arson.config.isAdmin(handler.player.getName().getLiteralString())){
-                handler.disconnect(Text.literal("[ArsonUtils] Server is in maintenance mode. Please try again later.").styled(style -> style.withBold(true).withColor(Formatting.RED)));
-                return;
-            }
-            else{
-                handler.getPlayer().sendMessage(Text.literal("[ArsonUtils] You are an admin. Maintenance mode is currently active.").styled(style -> style.withBold(true).withColor(Formatting.YELLOW)), false);
-                Arson.LOGGER.info("[ArsonUtils] Admin " + handler.getPlayer().getName().getLiteralString() + " has joined during maintenance mode.");
-            }
-        }
-
-        if(BannedData.checkPlayer(handler.getPlayer().getUuidAsString())){
-            BannedPlayer ban = BannedData.getBannedPlayer(handler.getPlayer().getUuidAsString());
-
-            handler.disconnect(Text.literal("You are banned for: " + (ban.timeless ? "inf" : TextFormatter.formatDuration(ban.BanSeconds))
-                            + "\n Reason/Reasons:\n" + ban.Reason.toString()).styled(style -> style.withBold(true)));
-
-            return;
-        }
-
         playerLoginTimeStamp.put(handler.getPlayer().getName().getLiteralString(), LocalDateTime.now());
         handler.getPlayer().sendMessage(Text.literal("[ArsonUtils] Logged Login Time: " + LocalDateTime.now().toString()).styled(style -> style.withBold(true).withColor(Formatting.RED)), false);
     }
