@@ -38,7 +38,6 @@ public class PlaytimeLogger {
         });
         Arson.LOGGER.info("[ArsonUtils] Week has been reset.");
         Arson.LOGGER.info(TextFormatter.formatWeekTimeLeaderBoard());
-        WebHookFormatter.SendPlaytimeWeekLog();
     }
 
     public static void UpdateServerTimeStampData_Month(){
@@ -48,7 +47,6 @@ public class PlaytimeLogger {
         });
         Arson.LOGGER.info("[ArsonUtils] Month has been reset.");
         Arson.LOGGER.info(TextFormatter.formatMonthTimeLeaderBoard());
-        WebHookFormatter.SendPlaytimeMonthLog();
     }
 
     public static PlayerPlaytimeData getPlayerPlaytimeData(String playerName) {

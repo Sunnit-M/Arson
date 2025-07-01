@@ -3,7 +3,6 @@ package net.justsunnit.arson.commands;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import net.justsunnit.arson.Arson;
-import net.justsunnit.arson.util.WebHookFormatter;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
@@ -17,8 +16,6 @@ public class TestLogPlaytimeCommand {
     }
 
     private static int run(CommandContext<ServerCommandSource> context){
-            WebHookFormatter.SendPlaytimeMonthLog();
-            WebHookFormatter.SendPlaytimeWeekLog();
             return 1;
     }
 }

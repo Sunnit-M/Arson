@@ -6,7 +6,6 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.justsunnit.arson.Arson;
 import net.justsunnit.arson.automod.BannedData;
-import net.justsunnit.arson.util.WebHookFormatter;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.GameProfileArgumentType;
 import net.minecraft.server.command.CommandManager;
@@ -36,8 +35,6 @@ public class UnBan {
 
             if(BannedData.unbanPlayer(player.getId().toString())){
                 context.getSource().sendMessage(Text.literal("[ArsonUtils] Player " + player.getName() + " has been unbanned.").styled(style -> style.withBold(true)));
-
-                WebHookFormatter.SendCommandHook("[ArsonUtils] " + context.getSource().getName() + " has unbanned " + player.getName() + ".");
                 return 1;
             } else {
                 context.getSource().sendError(Text.of("[ArsonUtils] Player " + player.getName() + " is not banned."));

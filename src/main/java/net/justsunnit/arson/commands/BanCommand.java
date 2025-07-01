@@ -9,7 +9,6 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.justsunnit.arson.Arson;
 import net.justsunnit.arson.automod.BannedData;
 import net.justsunnit.arson.objects.BannedPlayer;
-import net.justsunnit.arson.util.WebHookFormatter;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.command.argument.GameProfileArgumentType;
@@ -54,8 +53,6 @@ public class BanCommand {
             BannedData.banPlayer(data, player.getId().toString());
 
             context.getSource().sendMessage(Text.literal("[ArsonUtils] Player " + player.getName() + " has been banned for: " + data.BanSeconds + " seconds. Reason: " + data.Reason.toString()).styled(style -> style.withBold(true)));
-
-            WebHookFormatter.SendCommandHook("[ArsonUtils] " + context.getSource().getName() + " has banned " + player.getName() + " for " + data.BanSeconds + " seconds. Reason: " + data.Reason);
 
             return 1;
         }
