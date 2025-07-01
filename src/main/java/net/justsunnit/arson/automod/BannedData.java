@@ -35,7 +35,7 @@ public class BannedData { ;
                             bannedPlayers.get(playerUUID).BanDate = now;
                         }
                     } else {
-                        bannedPlayers.remove(playerUUID);
+                        it.remove();
                     }
                 }
             }
