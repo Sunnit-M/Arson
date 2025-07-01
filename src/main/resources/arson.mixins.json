@@ -8,6 +8,7 @@
 		"BanMixins.BanListCommandMixin",
 		"BanMixins.BanIPCommandMixin",
 		"BanMixins.UnBanIPCommandMixin",
+		"SeverLoginNetworkHandlerMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
