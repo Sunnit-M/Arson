@@ -44,12 +44,12 @@ dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-	implementation "org.yaml:snakeyaml:${project.snakeyaml_version}"
+
+	include(implementation "org.yaml:snakeyaml:${project.snakeyaml_version}")
+	//include(implementation 'com.github.eduardomcb:discord-webhook:1.0.0')
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-
-	include(implementation("io.hotmoka:toml4j:0.7.3"))
 
 	compileOnly "net.luckperms:api:5.4"
 }

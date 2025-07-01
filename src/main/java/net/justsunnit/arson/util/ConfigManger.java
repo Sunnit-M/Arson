@@ -1,11 +1,9 @@
 package net.justsunnit.arson.util;
 
 import net.justsunnit.arson.Arson;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
-import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -15,9 +13,8 @@ import java.util.Map;
 public class ConfigManger {
     public static List<Runnable> OnUpdateSubscribers = new ArrayList<>();
     public static final Path CONFIG_FOLER_PATH = new File("Arson_Config").toPath();
-    public static final Path CONFIG_FILE = new File("Arson_Config/config.json").toPath();
+    public static final Path CONFIG_FILE = new File("Arson_Config/config.yml").toPath();
     private Map<String, Object> configData;
-    private final Gson gson = new Gson();
 
     public ConfigManger() {
         LoadConfig();
@@ -28,37 +25,25 @@ public class ConfigManger {
             if (!CONFIG_FILE.toFile().exists()) {
                 CreateDefault();
             }
-            try (Reader reader = Files.newBufferedReader(CONFIG_FILE)) {
-                Type type = new TypeToken<Map<String, Object>>() {}.getType();
-                configData = gson.fromJson(reader, type);
+            Yaml yaml = new Yaml();
+            try (InputStream input = Files.newInputStream(CONFIG_FILE)) {
+                configData = yaml.load(input);
             }
         } catch (IOException e) {
-            Arson.LOGGER.info("[ArsonUtils] Failed to load config.json");
+            Arson.LOGGER.info("[ArsonUtils] Failed to load config.yml");
         }
     }
 
     private void CreateDefault() throws IOException {
-        String defaultConfig = """
-        {
-          "commandWebhookUrl": "",
-          "playtimeWebhookUrl": "",
-          "avatarUrl": "https://cdn.discordapp.com/embed/avatars/index.png",
-          "CommandLoggerUsername": "Command Logger",
-          "PlaytimeLoggerUsername": "Playtime Logger",
-          "enabled": true,
-          "defaultMessage": "Welcome to the server! Enjoy your stay!",
-          "maintenanceMessage": "The server is currently under maintenance. Please check back later.",
-          "maintenanceMode": false,
-          "admins": ["Sunnit_m"]
-        }
-        """;
-
-        try (Writer writer = Files.newBufferedWriter(CONFIG_FILE)) {
-            writer.write(defaultConfig);
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.yml");
+             OutputStream output = Files.newOutputStream(CONFIG_FILE)) {
+            if (input != null) {
+                input.transferTo(output);
+            }
         }
     }
 
-    public Map<String, Object> GetConfig() {
+    public Map<String,Object> GetConfig() {
         LoadConfig();
         return configData;
     }
@@ -84,12 +69,13 @@ public class ConfigManger {
 
     public void OverwriteConfig(Map<String, Object> newConfig) {
         try (Writer writer = Files.newBufferedWriter(CONFIG_FILE)) {
-            gson.toJson(newConfig, writer);
+            Yaml yaml = new Yaml();
+            yaml.dump(newConfig, writer);
         } catch (IOException e) {
-            Arson.LOGGER.info("[ArsonUtils] Failed to overwrite config.json");
+            Arson.LOGGER.info("[ArsonUtils] Failed to overwrite config.yml");
         }
         LoadConfig();
-        for (Runnable r : OnUpdateSubscribers) {
+        for(Runnable r : OnUpdateSubscribers){
             r.run();
         }
     }

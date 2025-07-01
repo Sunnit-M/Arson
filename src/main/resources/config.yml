@@ -1,0 +1,12 @@
+commandWebhookUrl: ""
+playtimeWebhookUrl: ""
+avatarUrl: "https://cdn.discordapp.com/embed/avatars/index.png"
+CommandLoggerUsername: "Command Logger"
+PlaytimeLoggerUsername: "Playtime Logger"
+enabled: true
+defaultMessage: "Welcome to the server! Enjoy your stay!"
+maintenanceMessage: "The server is currently under maintenance. Please check back later."
+
+maintenanceMode: false
+admins:
+  - "Notch"
