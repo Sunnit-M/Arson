@@ -8,6 +8,8 @@ import net.justsunnit.arson.TypeAdapters.LocalDateTimeAdapter;
 import net.justsunnit.arson.objects.BannedPlayer;
 import net.justsunnit.arson.objects.PlayerPlaytimeData;
 import net.justsunnit.arson.objects.ServerTimeStampData;
+import org.joml.Vector3L;
+import org.joml.Vector3f;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -21,6 +23,8 @@ public class JsonSaveHandler {
             resolve("banned_players.json").toFile();
     public static final File ALL_PLAYERS_FILE = new File(ConfigManger.CONFIG_FOLER_PATH.toString()).toPath().
             resolve("all_players.json").toFile();
+    public static final File SPECTATE_FILE = new File(ConfigManger.CONFIG_FOLER_PATH.toString()).toPath().
+            resolve("spectate.json").toFile();
 
     private static final Gson GSON = new GsonBuilder()
             .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
@@ -73,6 +77,17 @@ public class JsonSaveHandler {
                 e.printStackTrace();
             }
         }
+
+        if(!SPECTATE_FILE.exists()) {
+            try {
+                SPECTATE_FILE.createNewFile();
+                FileWriter writer = new FileWriter(SPECTATE_FILE);
+                writer.write(GSON.toJson(new HashMap<String, Vector3L>()));
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public static ServerTimeStampData GetServerTimeStampData() {
@@ -108,6 +123,28 @@ public class JsonSaveHandler {
         } catch (IOException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public static HashMap<String, Vector3L> GetSpectateData() {
+        try {
+            FileReader reader = new FileReader(SPECTATE_FILE);
+            HashMap<String, Vector3L> data = GSON.fromJson(reader, new TypeToken<HashMap<String, Vector3L>>() {}.getType());
+            reader.close();
+            return data;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static void SaveSpectateData(HashMap<String, Vector3L> data) {
+        try {
+            FileWriter writer = new FileWriter(SPECTATE_FILE);
+            writer.write(GSON.toJson(data));
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

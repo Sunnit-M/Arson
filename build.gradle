@@ -49,6 +49,8 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
+	include(implementation("io.hotmoka:toml4j:0.7.3"))
+
 	compileOnly "net.luckperms:api:5.4"
 }
 

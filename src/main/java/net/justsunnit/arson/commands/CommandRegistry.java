@@ -6,7 +6,6 @@ public class CommandRegistry {
     public static void registerCommands() {
         CommandRegistrationCallback.EVENT.register(SpectatePlayerCommand::register);
         CommandRegistrationCallback.EVENT.register(SpectateReturnCommand::register);
-        CommandRegistrationCallback.EVENT.register(TestLogPlaytimeCommand::register);
         CommandRegistrationCallback.EVENT.register(BanCommand::register);
         CommandRegistrationCallback.EVENT.register(UnBan::register);
         CommandRegistrationCallback.EVENT.register(BanListCommand::register);
@@ -16,5 +15,6 @@ public class CommandRegistry {
         CommandRegistrationCallback.EVENT.register(HelpCommand::register);
         CommandRegistrationCallback.EVENT.register(GetPlayerPlaytimeCommand::register);
         CommandRegistrationCallback.EVENT.register(ConfigReloadCommand::register);
+        CommandRegistrationCallback.EVENT.register(PermBanCommand::register);
     }
 }
