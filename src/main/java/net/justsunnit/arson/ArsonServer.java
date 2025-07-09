@@ -1,6 +1,6 @@
 package net.justsunnit.arson;
 
-import net.fabricmc.api.ModInitializer;
+import net.fabricmc.api.DedicatedServerModInitializer;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.justsunnit.arson.commands.CommandRegistry;
@@ -10,7 +10,7 @@ import net.minecraft.server.MinecraftServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Arson implements ModInitializer {
+public class ArsonServer implements DedicatedServerModInitializer {
 	public static final String MOD_ID = "arson";
 
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
@@ -32,7 +32,7 @@ public class Arson implements ModInitializer {
 	});
 
 	@Override
-	public void onInitialize() {;
+	public void onInitializeServer() {
 		DirectoryManager.checkDir();
 		config = new ConfigManger();
 
@@ -54,6 +54,6 @@ public class Arson implements ModInitializer {
 
 		playtimeLoggerThread.start();
 
-		LOGGER.info("[Arson] Initialized");
+		LOGGER.info("[ArsonServer] Initialized");
 	}
 }

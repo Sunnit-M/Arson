@@ -2,7 +2,7 @@ package net.justsunnit.arson.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
-import net.justsunnit.arson.Arson;
+import net.justsunnit.arson.ArsonServer;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
@@ -19,7 +19,7 @@ public class ConfigReloadCommand {
 
     private static int run(CommandContext<ServerCommandSource> context) {
         try{
-            Arson.config.LoadConfig();
+            ArsonServer.config.LoadConfig();
             return 1;
         }
         catch (Exception e){

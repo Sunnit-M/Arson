@@ -15,8 +15,8 @@
 	"icon": "assets/arson/icon.png",
 	"environment": "*",
 	"entrypoints": {
-		"main": [
-			"net.justsunnit.arson.Arson"
+		"server": [
+          "net.justsunnit.arson.ArsonServer"
 		],
 		"fabric-datagen": [
 			"net.justsunnit.arson.ArsonDataGenerator"

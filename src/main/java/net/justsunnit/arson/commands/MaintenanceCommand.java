@@ -4,7 +4,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.justsunnit.arson.Arson;
+import net.justsunnit.arson.ArsonServer;
 import net.justsunnit.arson.util.ConfigManger;
 import net.justsunnit.arson.util.CountdownBuilder;
 import net.justsunnit.arson.util.JsonSaveHandler;
@@ -23,7 +23,7 @@ public class MaintenanceCommand {
         dispatcher.register(CommandManager.literal("arson")
                 .then(CommandManager.literal("maintenance")
                         .requires(source -> !source.isExecutedByPlayer() ||
-                                source.hasPermissionLevel(4) || Arson.config.isAdmin(source.getPlayer().getName().getLiteralString()))
+                                source.hasPermissionLevel(4) || ArsonServer.config.isAdmin(source.getPlayer().getName().getLiteralString()))
                         .then(CommandManager.argument("type" ,StringArgumentType.greedyString()).suggests((context, builder) ->
                                 builder.suggest("on").suggest("off").suggest("status").buildFuture())
                                 .executes(MaintenanceCommand::run))));
@@ -46,7 +46,7 @@ public class MaintenanceCommand {
 
         switch (type) {
             case "on":
-                List<String> admins = Arson.config.getAdmins();
+                List<String> admins = ArsonServer.config.getAdmins();
                 if (admins.isEmpty()) {
                     context.getSource().sendError(Text.of("[ArsonUtils] No admins configured. Please set at least one admin before enabling maintenance mode."));
                     return 0;
@@ -55,7 +55,7 @@ public class MaintenanceCommand {
                 Object[] args = new Object[4];
                 args[0] = admins;
                 args[1] = context;
-                args[2] = Arson.config;
+                args[2] = ArsonServer.config;
                 args[3] = JsonSaveHandler.getAllPlayers();
 
                 CountdownBuilder.Builder countdownBuilder = new CountdownBuilder.Builder();
@@ -86,11 +86,11 @@ public class MaintenanceCommand {
                 countdownBuilder.build().exe();
 
             case "off":
-                Arson.config.setMaintenanceMode(false);
+                ArsonServer.config.setMaintenanceMode(false);
                 context.getSource().sendFeedback(() -> Text.of("[ArsonUtils] Maintenance mode is now OFF"), false);
                 break;
             case "status":
-                boolean status = Arson.config.isMaintenanceMode();
+                boolean status = ArsonServer.config.isMaintenanceMode();
                 context.getSource().sendFeedback(() -> Text.of("[ArsonUtils] Maintenance mode is currently " + (status ? "ON" : "OFF")), false);
                 break;
 

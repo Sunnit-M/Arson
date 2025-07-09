@@ -3,7 +3,7 @@ package net.justsunnit.arson.commands;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.justsunnit.arson.Arson;
+import net.justsunnit.arson.ArsonServer;
 import net.justsunnit.arson.automod.BannedData;
 import net.justsunnit.arson.objects.BannedPlayer;
 import net.justsunnit.arson.util.TextFormatter;
@@ -19,7 +19,7 @@ public class BanListCommand {
         dispatcher.register(CommandManager.literal("arson")
                 .then(CommandManager.literal("banlist")
                         .requires(source ->
-                        !source.isExecutedByPlayer() || Arson.config.isAdmin(source.getPlayer().getName().getLiteralString()) || source.hasPermissionLevel(4))
+                        !source.isExecutedByPlayer() || ArsonServer.config.isAdmin(source.getPlayer().getName().getLiteralString()) || source.hasPermissionLevel(4))
                 .executes(BanListCommand::run)));
     }
 

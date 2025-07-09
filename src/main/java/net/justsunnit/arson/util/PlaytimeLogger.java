@@ -1,6 +1,6 @@
 package net.justsunnit.arson.util;
 
-import net.justsunnit.arson.Arson;
+import net.justsunnit.arson.ArsonServer;
 import net.justsunnit.arson.objects.PlayerPlaytimeData;
 import net.justsunnit.arson.objects.ServerTimeStampData;
 
@@ -36,8 +36,8 @@ public class PlaytimeLogger {
         JsonSaveHandler.GetPlayerPlaytimeData().forEach((key, value) -> {
             ((PlayerPlaytimeData) value).ResetWeekPlaytime();
         });
-        Arson.LOGGER.info("[ArsonUtils] Week has been reset.");
-        Arson.LOGGER.info(TextFormatter.formatWeekTimeLeaderBoard());
+        ArsonServer.LOGGER.info("[ArsonUtils] Week has been reset.");
+        ArsonServer.LOGGER.info(TextFormatter.formatWeekTimeLeaderBoard());
     }
 
     public static void UpdateServerTimeStampData_Month(){
@@ -45,8 +45,8 @@ public class PlaytimeLogger {
         JsonSaveHandler.GetPlayerPlaytimeData().forEach((key, value) -> {
             ((PlayerPlaytimeData) value).ResetMonthPlaytime();
         });
-        Arson.LOGGER.info("[ArsonUtils] Month has been reset.");
-        Arson.LOGGER.info(TextFormatter.formatMonthTimeLeaderBoard());
+        ArsonServer.LOGGER.info("[ArsonUtils] Month has been reset.");
+        ArsonServer.LOGGER.info(TextFormatter.formatMonthTimeLeaderBoard());
     }
 
     public static PlayerPlaytimeData getPlayerPlaytimeData(String playerName) {
@@ -65,7 +65,7 @@ public class PlaytimeLogger {
             return data;
         }
         catch (Exception e) {
-            Arson.LOGGER.error("[ArsonUtils] Failed to get playtime data for player: " + playerName, e);
+            ArsonServer.LOGGER.error("[ArsonUtils] Failed to get playtime data for player: " + playerName, e);
             return new PlayerPlaytimeData();
         }
     }

@@ -3,8 +3,7 @@ package net.justsunnit.arson.event;
 import com.mojang.authlib.GameProfile;
 import net.fabricmc.fabric.api.networking.v1.LoginPacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerLoginNetworking;
-import net.fabricmc.fabric.mixin.networking.accessor.ServerLoginNetworkHandlerAccessor;
-import net.justsunnit.arson.Arson;
+import net.justsunnit.arson.ArsonServer;
 import net.justsunnit.arson.automod.BannedData;
 import net.justsunnit.arson.objects.BannedPlayer;
 import net.justsunnit.arson.util.TextFormatter;
@@ -26,8 +25,8 @@ public class PlayerLoginEvents {
         loginSynchronizer.waitFor(Wait);
 
         // Maintenance check
-        if (Arson.config.isMaintenanceMode()) {
-            if (!Arson.config.isAdmin(profile.getName())) {
+        if (ArsonServer.config.isMaintenanceMode()) {
+            if (!ArsonServer.config.isAdmin(profile.getName())) {
                 handler.disconnect(Text.literal("[ArsonUtils] Server is in maintenance mode. Please try again later.").styled(style -> style.withBold(true).withColor(Formatting.RED)));
                 return;
             }

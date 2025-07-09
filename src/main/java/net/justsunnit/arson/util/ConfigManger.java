@@ -1,6 +1,6 @@
 package net.justsunnit.arson.util;
 
-import net.justsunnit.arson.Arson;
+import net.justsunnit.arson.ArsonServer;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
@@ -30,7 +30,7 @@ public class ConfigManger {
                 configData = yaml.load(input);
             }
         } catch (IOException e) {
-            Arson.LOGGER.info("[ArsonUtils] Failed to load config.yml");
+            ArsonServer.LOGGER.info("[ArsonUtils] Failed to load config.yml");
         }
     }
 
@@ -60,11 +60,11 @@ public class ConfigManger {
     }
 
     public void setMaintenanceMode(boolean enabled) {
-        Map<String, Object> config = Arson.config.GetConfig();
+        Map<String, Object> config = ArsonServer.config.GetConfig();
         config.put("maintenanceMode", enabled);
-        Arson.config.OverwriteConfig(config);
+        ArsonServer.config.OverwriteConfig(config);
 
-        Arson.server.setMotd(enabled ? (String) config.get("maintenanceMessage") : (String) config.get("defaultMessage"));
+        ArsonServer.server.setMotd(enabled ? (String) config.get("maintenanceMessage") : (String) config.get("defaultMessage"));
     }
 
     public void OverwriteConfig(Map<String, Object> newConfig) {
@@ -72,7 +72,7 @@ public class ConfigManger {
             Yaml yaml = new Yaml();
             yaml.dump(newConfig, writer);
         } catch (IOException e) {
-            Arson.LOGGER.info("[ArsonUtils] Failed to overwrite config.yml");
+            ArsonServer.LOGGER.info("[ArsonUtils] Failed to overwrite config.yml");
         }
         LoadConfig();
         for(Runnable r : OnUpdateSubscribers){

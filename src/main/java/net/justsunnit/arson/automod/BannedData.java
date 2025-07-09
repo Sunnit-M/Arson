@@ -1,6 +1,6 @@
 package net.justsunnit.arson.automod;
 
-import net.justsunnit.arson.Arson;
+import net.justsunnit.arson.ArsonServer;
 import net.justsunnit.arson.objects.BannedPlayer;
 import net.justsunnit.arson.util.JsonSaveHandler;
 import net.justsunnit.arson.util.TextFormatter;
@@ -69,11 +69,11 @@ public class BannedData { ;
         }
         JsonSaveHandler.SaveBannedPlayerData(bannedPlayers);
 
-        Arson.server.getPlayerManager().getPlayer(UUID.fromString(uuid)).networkHandler.disconnect(Text.literal(
+        ArsonServer.server.getPlayerManager().getPlayer(UUID.fromString(uuid)).networkHandler.disconnect(Text.literal(
                 "You are banned for: " + (player.timeless ? "inf" : TextFormatter.formatDuration(player.BanSeconds))
                 + "\n Reason/Reasons:\n" + player.Reason.toString()).styled(style -> style.withBold(true)));
 
-        Arson.LOGGER.info("[ArsonUtils] Banned player: " + player.Name);
+        ArsonServer.LOGGER.info("[ArsonUtils] Banned player: " + player.Name);
     }
 
     public static boolean unbanPlayer(String playerUUID) {
@@ -82,7 +82,7 @@ public class BannedData { ;
             String playerName = bannedPlayers.get(playerUUID).Name;
             bannedPlayers.remove(playerUUID);
             JsonSaveHandler.SaveBannedPlayerData(bannedPlayers);
-            Arson.LOGGER.info("[ArsonUtils] Unbanned player: " + playerName);
+            ArsonServer.LOGGER.info("[ArsonUtils] Unbanned player: " + playerName);
             return true;
         }
         return false;
@@ -100,6 +100,6 @@ public class BannedData { ;
         }
         JsonSaveHandler.SaveBannedPlayerData(bannedPlayers);
 
-        Arson.LOGGER.info("[ArsonUtils] Banned player: " + player.Name);
+        ArsonServer.LOGGER.info("[ArsonUtils] Banned player: " + player.Name);
     }
 }

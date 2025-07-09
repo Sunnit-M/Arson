@@ -2,7 +2,7 @@ package net.justsunnit.arson.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
-import net.justsunnit.arson.Arson;
+import net.justsunnit.arson.ArsonServer;
 import net.justsunnit.arson.util.PlaytimeLogger;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.GameProfileArgumentType;
@@ -15,7 +15,7 @@ public class GetPlayerPlaytimeCommand {
         dispatcher.register(CommandManager.literal("arson")
                 .then(CommandManager.literal("getPlaytime")
                         .requires(source -> !source.isExecutedByPlayer() || source.hasPermissionLevel(4) ||
-                                Arson.config.isAdmin(source.getPlayer().getName().getLiteralString()))
+                                ArsonServer.config.isAdmin(source.getPlayer().getName().getLiteralString()))
                         .then(CommandManager.argument("player", GameProfileArgumentType.gameProfile())
                                 .executes(GetPlayerPlaytimeCommand::run))));
     }

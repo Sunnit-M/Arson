@@ -3,7 +3,7 @@ package net.justsunnit.arson.commands;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
-import net.justsunnit.arson.Arson;
+import net.justsunnit.arson.ArsonServer;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
@@ -29,11 +29,11 @@ public class SetMotdCommand {
 
 
         if(motd.startsWith("def")){
-            Arson.config.setMaintenanceMode(Arson.config.isMaintenanceMode());
+            ArsonServer.config.setMaintenanceMode(ArsonServer.config.isMaintenanceMode());
             source.sendMessage(Text.of("[ArsonUtils] MOTD has been set to default."));
         }
         else {
-            Arson.server.setMotd(motd);
+            ArsonServer.server.setMotd(motd);
             source.sendMessage(Text.of("[ArsonUtils] MOTD has been set to: " + motd));
         }
         return 1;
