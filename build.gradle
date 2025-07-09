@@ -31,6 +31,7 @@ repositories {
 	mavenCentral()
 	maven { url("https://jitpack.io")}
 	maven {url("https://oss.sonatype.org/content/repositories/snapshots/")}
+	maven { url "https://maven.wispforest.io/releases/" }
 }
 
 fabricApi {
@@ -50,6 +51,9 @@ dependencies {
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+	modImplementation "io.wispforest:owo-lib:${project.owo_version}"
+	include "io.wispforest:owo-sentinel:${project.owo_version}"
 
 	compileOnly "net.luckperms:api:5.4"
 }
