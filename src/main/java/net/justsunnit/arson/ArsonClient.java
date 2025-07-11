@@ -1,4 +1,10 @@
 package net.justsunnit.arson;
 
-public class ArsonClient {
+import net.fabricmc.api.ClientModInitializer;
+
+public class ArsonClient implements ClientModInitializer {
+    @Override
+    public void onInitializeClient() {
+
+    }
 }

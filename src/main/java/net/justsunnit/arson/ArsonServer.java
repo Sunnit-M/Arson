@@ -5,10 +5,9 @@ import net.fabricmc.api.DedicatedServerModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.justsunnit.arson.commands.CommandRegistry;
 import net.justsunnit.arson.event.*;
+import net.justsunnit.arson.packets.RegisterPackets;
 import net.justsunnit.arson.util.*;
 import net.minecraft.server.MinecraftServer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class ArsonServer implements DedicatedServerModInitializer {
 	public static ConfigManger config;
@@ -49,6 +48,8 @@ public class ArsonServer implements DedicatedServerModInitializer {
 		});
 
 		playtimeLoggerThread.start();
+
+		RegisterPackets.registerPackets();
 
 		Arson.LOGGER.info("[ArsonServer] Initialized");
 	}
