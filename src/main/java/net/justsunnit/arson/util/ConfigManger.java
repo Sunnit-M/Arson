@@ -1,5 +1,6 @@
 package net.justsunnit.arson.util;
 
+import net.justsunnit.arson.Arson;
 import net.justsunnit.arson.ArsonServer;
 import org.yaml.snakeyaml.Yaml;
 
@@ -30,7 +31,7 @@ public class ConfigManger {
                 configData = yaml.load(input);
             }
         } catch (IOException e) {
-            ArsonServer.LOGGER.info("[ArsonUtils] Failed to load config.yml");
+            Arson.LOGGER.info("[ArsonUtils] Failed to load config.yml");
         }
     }
 
@@ -72,7 +73,7 @@ public class ConfigManger {
             Yaml yaml = new Yaml();
             yaml.dump(newConfig, writer);
         } catch (IOException e) {
-            ArsonServer.LOGGER.info("[ArsonUtils] Failed to overwrite config.yml");
+            Arson.LOGGER.info("[ArsonUtils] Failed to overwrite config.yml");
         }
         LoadConfig();
         for(Runnable r : OnUpdateSubscribers){

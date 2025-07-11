@@ -1,6 +1,7 @@
 package net.justsunnit.arson.event;
 
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.justsunnit.arson.Arson;
 import net.justsunnit.arson.ArsonServer;
 import net.justsunnit.arson.automod.BannedData;
 import net.justsunnit.arson.objects.BannedPlayer;
@@ -21,7 +22,7 @@ public class PlayerJoinLeaveEvents {
     public static void playerJoin(ServerPlayNetworkHandler handler, PacketSender sender, MinecraftServer server){
         if(!JsonSaveHandler.getAllPlayers().containsKey(handler.getPlayer().getName().getLiteralString())){
             JsonSaveHandler.AddPlayerToAllPlayers(handler.player.getName().toString(), handler.getPlayer().getUuidAsString());
-            ArsonServer.LOGGER.info("[ArsonUtils] New player detected: " + handler.getPlayer().getName().getLiteralString() + ". Added to all players list.");
+            Arson.LOGGER.info("[ArsonUtils] New player detected: " + handler.getPlayer().getName().getLiteralString() + ". Added to all players list.");
         }
 
         playerLoginTimeStamp.put(handler.getPlayer().getName().getLiteralString(), LocalDateTime.now());
@@ -33,7 +34,7 @@ public class PlayerJoinLeaveEvents {
         PlayerPlaytimeData data = (PlayerPlaytimeData) JsonSaveHandler.GetPlayerPlaytimeData().getOrDefault(handler.getPlayer().getName().getLiteralString(), new PlayerPlaytimeData());
         data.AddPlaytime(timeSpent.toSeconds());
         JsonSaveHandler.SavePlayerPlaytimeData(data, handler.getPlayer().getName().getLiteralString());
-        ArsonServer.LOGGER.info("[ArsonUtils] Playtime for " + handler.getPlayer().getName().getLiteralString() + " has been saved.");
+        Arson.LOGGER.info("[ArsonUtils] Playtime for " + handler.getPlayer().getName().getLiteralString() + " has been saved.");
 
         playerLoginTimeStamp.remove(handler.getPlayer().getName().getLiteralString());
 

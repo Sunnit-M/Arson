@@ -18,8 +18,14 @@
 		"server": [
           "net.justsunnit.arson.ArsonServer"
 		],
+		"main": [
+			"net.justsunnit.arson.Arson"
+		],
 		"fabric-datagen": [
 			"net.justsunnit.arson.ArsonDataGenerator"
+		],
+		"client": [
+			"net.justsunnit.arson.ArsonClient"
 		]
 	},
 	"mixins": [

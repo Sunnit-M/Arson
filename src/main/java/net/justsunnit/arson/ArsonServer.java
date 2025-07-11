@@ -11,10 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ArsonServer implements DedicatedServerModInitializer {
-	public static final String MOD_ID = "arson";
-
-	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-
 	public static ConfigManger config;
 
 	public static MinecraftServer server;
@@ -54,6 +50,6 @@ public class ArsonServer implements DedicatedServerModInitializer {
 
 		playtimeLoggerThread.start();
 
-		LOGGER.info("[ArsonServer] Initialized");
+		Arson.LOGGER.info("[ArsonServer] Initialized");
 	}
 }
