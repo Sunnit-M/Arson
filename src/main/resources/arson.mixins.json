@@ -8,7 +8,9 @@
 		"BanMixins.BanListCommandMixin",
 		"BanMixins.BanIPCommandMixin",
 		"BanMixins.UnBanIPCommandMixin",
-		"SeverLoginNetworkHandlerMixin"
+		"SeverLoginNetworkHandlerMixin",
+		"anvil.AnvilScreenHandlerMixin",
+		"anvil.client.AnvilScreenMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
