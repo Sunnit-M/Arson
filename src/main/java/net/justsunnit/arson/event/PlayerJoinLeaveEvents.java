@@ -21,7 +21,7 @@ import static net.justsunnit.arson.util.PlaytimeLogger.*;
 public class PlayerJoinLeaveEvents {
     public static void playerJoin(ServerPlayNetworkHandler handler, PacketSender sender, MinecraftServer server){
         if(!JsonSaveHandler.getAllPlayers().containsKey(handler.getPlayer().getName().getLiteralString())){
-            JsonSaveHandler.AddPlayerToAllPlayers(handler.player.getName().toString(), handler.getPlayer().getUuidAsString());
+            JsonSaveHandler.AddPlayerToAllPlayers(handler.player.getName().getLiteralString(), handler.getPlayer().getUuidAsString());
             Arson.LOGGER.info("[ArsonUtils] New player detected: " + handler.getPlayer().getName().getLiteralString() + ". Added to all players list.");
         }
 
