@@ -49,8 +49,6 @@ public class ArsonServer implements DedicatedServerModInitializer {
 
 		playtimeLoggerThread.start();
 
-		RegisterPackets.registerPackets();
-
 		Arson.LOGGER.info("[ArsonServer] Initialized");
 	}
 }
