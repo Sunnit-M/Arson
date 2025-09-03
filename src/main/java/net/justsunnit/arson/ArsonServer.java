@@ -4,8 +4,8 @@ import net.fabricmc.api.DedicatedServerModInitializer;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.justsunnit.arson.commands.CommandRegistry;
+import net.justsunnit.arson.config.ConfigManger;
 import net.justsunnit.arson.event.*;
-import net.justsunnit.arson.packets.RegisterPackets;
 import net.justsunnit.arson.util.*;
 import net.minecraft.server.MinecraftServer;
 
@@ -35,7 +35,7 @@ public class ArsonServer implements DedicatedServerModInitializer {
 		PlaytimeLogger.initializeLogger();
 		PlaytimeLogger.UpdateTimeStamps();
 
-		EventRegistries.registerEvents();
+		EventRegistries.registerEvents_Server();
 		CommandRegistry.registerCommands();
 
 		ServerLifecycleEvents.SERVER_STARTED.register(s -> {

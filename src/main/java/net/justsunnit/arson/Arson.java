@@ -11,8 +11,8 @@ public class Arson implements ModInitializer {
     public static final String MOD_ID = "arson";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-    public static final Identifier HAS_CLIENT_ID = Identifier.of(MOD_ID, "hasclient");
-    public static final OwoNetChannel HAS_CLIENT_CHANNEL = OwoNetChannel.create(HAS_CLIENT_ID);
+    public static final Identifier CLIENT_HANDSHAKE_ID = Identifier.of(MOD_ID, "hasclient");
+    public static final OwoNetChannel CLIENT_HANDSHAKE_CHANNEL = OwoNetChannel.create(CLIENT_HANDSHAKE_ID);
 
 
     @Override
