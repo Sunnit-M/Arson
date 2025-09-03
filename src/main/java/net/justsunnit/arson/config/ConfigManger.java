@@ -1,4 +1,4 @@
-package net.justsunnit.arson.util;
+package net.justsunnit.arson.config;
 
 import net.justsunnit.arson.Arson;
 import net.justsunnit.arson.ArsonServer;
