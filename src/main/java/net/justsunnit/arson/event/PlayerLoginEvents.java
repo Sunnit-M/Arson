@@ -3,6 +3,7 @@ package net.justsunnit.arson.event;
 import com.mojang.authlib.GameProfile;
 import net.fabricmc.fabric.api.networking.v1.LoginPacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerLoginNetworking;
+import net.justsunnit.arson.Arson;
 import net.justsunnit.arson.ArsonServer;
 import net.justsunnit.arson.automod.BannedData;
 import net.justsunnit.arson.objects.BannedPlayer;
@@ -39,7 +40,6 @@ public class PlayerLoginEvents {
             handler.disconnect(Text.literal("You are banned for: " + (ban.timeless ? "inf" : TextFormatter.formatDuration(ban.BanSeconds))
                     + "\nReason/Reasons:\n" + ban.Reason).styled(style -> style.withBold(true).withColor(Formatting.RED)));
         }
-
         Wait.complete(null);
     }
 }

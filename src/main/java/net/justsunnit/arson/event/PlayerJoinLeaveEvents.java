@@ -6,6 +6,7 @@ import net.justsunnit.arson.ArsonServer;
 import net.justsunnit.arson.automod.BannedData;
 import net.justsunnit.arson.objects.BannedPlayer;
 import net.justsunnit.arson.objects.PlayerPlaytimeData;
+import net.justsunnit.arson.runnable.CheckPlayer;
 import net.justsunnit.arson.util.JsonSaveHandler;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
@@ -20,6 +21,13 @@ import static net.justsunnit.arson.util.PlaytimeLogger.*;
 
 public class PlayerJoinLeaveEvents {
     public static void playerJoin(ServerPlayNetworkHandler handler, PacketSender sender, MinecraftServer server){
+
+        CheckPlayer run = new CheckPlayer(handler.getPlayer());
+
+        Thread thread = new Thread(run);
+        thread.start();
+
+
         if(!JsonSaveHandler.getAllPlayers().containsKey(handler.getPlayer().getName().getLiteralString())){
             JsonSaveHandler.AddPlayerToAllPlayers(handler.player.getName().getLiteralString(), handler.getPlayer().getUuidAsString());
             Arson.LOGGER.info("[ArsonUtils] New player detected: " + handler.getPlayer().getName().getLiteralString() + ". Added to all players list.");
