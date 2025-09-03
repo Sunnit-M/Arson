@@ -1,8 +1,7 @@
 package net.justsunnit.arson.packets.objects;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.util.List;
 
-public record ClientHandshake(
-ArrayList<String> loadedMods
+public record ClientHandshakePacket(
+List<String> loadedMods
 ){}

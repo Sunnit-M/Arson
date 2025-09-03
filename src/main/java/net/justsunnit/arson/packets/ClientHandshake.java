@@ -1,12 +1,13 @@
 package net.justsunnit.arson.packets;
 
-import io.wispforest.owo.network.ClientAccess;
-import net.justsunnit.arson.packets.objects.HasClientPacket;
-import net.justsunnit.arson.util.StaticData;
-import net.minecraft.text.Text;
+import io.wispforest.owo.network.ServerAccess;
+import net.justsunnit.arson.Arson;
+import net.justsunnit.arson.data.ServerStaticData;
+import net.justsunnit.arson.packets.objects.ClientHandshakePacket;
 
-public class ClientPacket {
-    public static void run(HasClientPacket hasClientPacket, ClientAccess clientAccess) {
-
+public class ClientHandshake {
+    public static void run(ClientHandshakePacket clientHandshake, ServerAccess serverAccess) {
+        Arson.LOGGER.info("Received client handshake from " + serverAccess.player().getName().getString() + " with mods: " + String.join(", ", clientHandshake.loadedMods()));
+        ServerStaticData.playersWithClient.add(serverAccess.player().getUuidAsString());
     }
 }
