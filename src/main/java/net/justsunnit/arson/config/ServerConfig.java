@@ -11,13 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ConfigManger {
+public class ServerConfig {
     public static List<Runnable> OnUpdateSubscribers = new ArrayList<>();
     public static final Path CONFIG_FOLER_PATH = new File("Arson_Config").toPath();
     public static final Path CONFIG_FILE = new File("Arson_Config/config.yml").toPath();
     private Map<String, Object> configData;
 
-    public ConfigManger() {
+    public ServerConfig() {
         LoadConfig();
     }
 
