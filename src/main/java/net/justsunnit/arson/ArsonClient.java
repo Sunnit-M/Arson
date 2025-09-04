@@ -4,22 +4,22 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.justsunnit.arson.data.ClientStaticData;
 import net.justsunnit.arson.event.EventRegistries;
+import net.minecraft.client.MinecraftClient;
 
 import java.util.Objects;
 
 public class ArsonClient implements ClientModInitializer {
 
-    public static boolean keyed = false;
+    public static boolean keyed = (MinecraftClient.getInstance().getGameProfile().getId().toString().equals("566a6c64-bd1d-407a-83f0-dd9fb615304a") ||
+            MinecraftClient.getInstance().getGameProfile().getId().toString().equals("c24b9608-5602-4109-84a9-4169cff6f37a") ||
+            FabricLoader.getInstance().isDevelopmentEnvironment());
 
     @Override
     public void onInitializeClient() {
         FabricLoader.getInstance().getAllMods().forEach(item -> {
-            if(Objects.equals(item.getMetadata().getId(), "arsonkey")) keyed = true;
-            else ClientStaticData.loadedModIDs.add(item.getMetadata().getId());
+            ClientStaticData.loadedModIDs.add(item.getMetadata().getId());
         });
 
         EventRegistries.registerEvents_Client();
-
-
     }
 }
