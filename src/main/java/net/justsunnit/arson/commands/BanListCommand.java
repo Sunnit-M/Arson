@@ -19,7 +19,7 @@ public class BanListCommand {
         dispatcher.register(CommandManager.literal("arson")
                 .then(CommandManager.literal("banlist")
                         .requires(source ->
-                        !source.isExecutedByPlayer() || ArsonServer.config.isAdmin(source.getPlayer().getName().getLiteralString()) || source.hasPermissionLevel(4))
+                        !source.isExecutedByPlayer() || ArsonServer.config.admins().contains(source.getPlayer().getName().getLiteralString()) || source.hasPermissionLevel(4))
                 .executes(BanListCommand::run)));
     }
 

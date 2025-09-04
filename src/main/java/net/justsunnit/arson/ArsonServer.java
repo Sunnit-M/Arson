@@ -4,13 +4,14 @@ import net.fabricmc.api.DedicatedServerModInitializer;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.justsunnit.arson.commands.CommandRegistry;
-import net.justsunnit.arson.config.ConfigManger;
+import net.justsunnit.arson.config.ArsonConfig;
 import net.justsunnit.arson.event.*;
 import net.justsunnit.arson.util.*;
 import net.minecraft.server.MinecraftServer;
 
 public class ArsonServer implements DedicatedServerModInitializer {
-	public static ConfigManger config;
+
+	public static final ArsonConfig config = ArsonConfig.createAndLoad();
 
 	public static MinecraftServer server;
 
@@ -29,7 +30,6 @@ public class ArsonServer implements DedicatedServerModInitializer {
 	@Override
 	public void onInitializeServer() {
 		DirectoryManager.checkDir();
-		config = new ConfigManger();
 
 		JsonSaveHandler.initializeJsonData();
 		PlaytimeLogger.initializeLogger();
@@ -39,7 +39,7 @@ public class ArsonServer implements DedicatedServerModInitializer {
 		CommandRegistry.registerCommands();
 
 		ServerLifecycleEvents.SERVER_STARTED.register(s -> {
-			s.setMotd(config.isMaintenanceMode() ? (String) config.GetConfig().get("maintenanceMessage") : (String) config.GetConfig().get("defaultMessage"));
+			s.setMotd(config.maintenanceMode() ? (String) config.maintenanceMessage() : (String) config.defaultMessage());
 			server = s;
 		});
 

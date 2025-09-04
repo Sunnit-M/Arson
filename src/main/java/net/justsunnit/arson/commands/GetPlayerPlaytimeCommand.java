@@ -15,7 +15,7 @@ public class GetPlayerPlaytimeCommand {
         dispatcher.register(CommandManager.literal("arson")
                 .then(CommandManager.literal("getPlaytime")
                         .requires(source -> !source.isExecutedByPlayer() || source.hasPermissionLevel(4) ||
-                                ArsonServer.config.isAdmin(source.getPlayer().getName().getLiteralString()))
+                                ArsonServer.config.admins().contains(source.getPlayer().getName().getLiteralString()))
                         .then(CommandManager.argument("player", GameProfileArgumentType.gameProfile())
                                 .executes(GetPlayerPlaytimeCommand::run))));
     }

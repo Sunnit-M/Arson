@@ -23,7 +23,7 @@ public class BanCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess dedicated, CommandManager.RegistrationEnvironment environment) {
         dispatcher.register((CommandManager.literal("arson")
                 .then(CommandManager.literal("timedBan").requires(source ->  !source.isExecutedByPlayer() ||
-                                ArsonServer.config.isAdmin(source.getPlayer().getName().getLiteralString()) || source.hasPermissionLevel(4))
+                                ArsonServer.config.admins().contains(source.getPlayer().getName().getLiteralString()) || source.hasPermissionLevel(4))
                 .then(CommandManager.argument("player", GameProfileArgumentType.gameProfile())
                 .then(CommandManager.argument("days", IntegerArgumentType.integer(0))
                 .then(CommandManager.argument("hours", IntegerArgumentType.integer(0))

@@ -29,7 +29,7 @@ public class SetMotdCommand {
 
 
         if(motd.startsWith("def")){
-            ArsonServer.config.setMaintenanceMode(ArsonServer.config.isMaintenanceMode());
+            ArsonServer.config.maintenanceMode(ArsonServer.config.maintenanceMode());
             source.sendMessage(Text.of("[ArsonUtils] MOTD has been set to default."));
         }
         else {

@@ -3,24 +3,31 @@ package net.justsunnit.arson.util;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import net.fabricmc.loader.api.FabricLoader;
 import net.justsunnit.arson.TypeAdapters.LocalDateTimeAdapter;
+import net.justsunnit.arson.config.ServerConfigModal;
 import net.justsunnit.arson.objects.BannedPlayer;
 import net.justsunnit.arson.objects.PlayerPlaytimeData;
 import net.justsunnit.arson.objects.ServerTimeStampData;
 import org.joml.Vector3L;
 
 import java.io.*;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
 public class JsonSaveHandler {
-    public static final String DateTimestamp_FILE = "Arson_Config/Playtime/date_timestamp.json";
-    public static final String Playtime_FILE = "Arson_Config/Playtime/player_playtime.json";
-    public static final File BANNED_PLAYERS_FILE = new File(ConfigManger.CONFIG_FOLER_PATH.toString()).toPath().
+    public static final Path DATA_FOLDER = new File(FabricLoader.getInstance().getConfigDir().toString()).toPath().
+            resolve("ArsonData");
+    public static final File DateTimestamp_FILE = new File(DATA_FOLDER.toString()).toPath()
+            .resolve("Playtime").resolve("date_timestamp.json").toFile();
+    public static final File Playtime_FILE = new File(DATA_FOLDER.toString()).toPath()
+            .resolve("Playtime").resolve("player_playtime.json").toFile();
+    public static final File BANNED_PLAYERS_FILE = new File(DATA_FOLDER.toString()).toPath().
             resolve("banned_players.json").toFile();
-    public static final File ALL_PLAYERS_FILE = new File(ConfigManger.CONFIG_FOLER_PATH.toString()).toPath().
+    public static final File ALL_PLAYERS_FILE = new File(DATA_FOLDER.toString()).toPath().
             resolve("all_players.json").toFile();
-    public static final File SPECTATE_FILE = new File(ConfigManger.CONFIG_FOLER_PATH.toString()).toPath().
+    public static final File SPECTATE_FILE = new File(DATA_FOLDER.toString()).toPath().
             resolve("spectate.json").toFile();
 
     private static final Gson GSON = new GsonBuilder()
@@ -30,9 +37,9 @@ public class JsonSaveHandler {
 
 
     public static void initializeJsonData() {
-        if (!new File(DateTimestamp_FILE).exists()) {
+        if (!DateTimestamp_FILE.exists()) {
             try {
-                new File(DateTimestamp_FILE).createNewFile();
+                DateTimestamp_FILE.createNewFile();
                 FileWriter writer = new FileWriter(DateTimestamp_FILE);
                 ServerTimeStampData data = new ServerTimeStampData(LocalDateTime.now(), LocalDateTime.now());
                 writer.write(GSON.toJson(data));
@@ -42,9 +49,9 @@ public class JsonSaveHandler {
             }
         }
 
-        if (!new File(Playtime_FILE).exists()) {
+        if (!Playtime_FILE.exists()) {
             try {
-                new File(Playtime_FILE).createNewFile();
+                Playtime_FILE.createNewFile();
                 FileWriter writer = new FileWriter(Playtime_FILE);
                 writer.write(GSON.toJson(new HashMap<String, PlayerPlaytimeData>()));
                 writer.close();

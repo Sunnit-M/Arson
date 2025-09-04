@@ -14,7 +14,6 @@ public class CommandRegistry {
         CommandRegistrationCallback.EVENT.register(SetMotdCommand::register);
         CommandRegistrationCallback.EVENT.register(HelpCommand::register);
         CommandRegistrationCallback.EVENT.register(GetPlayerPlaytimeCommand::register);
-        CommandRegistrationCallback.EVENT.register(ConfigReloadCommand::register);
         CommandRegistrationCallback.EVENT.register(PermBanCommand::register);
     }
 }

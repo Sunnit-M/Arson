@@ -5,7 +5,8 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.justsunnit.arson.ArsonServer;
-import net.justsunnit.arson.util.ConfigManger;
+import net.justsunnit.arson.config.ArsonConfig;
+import net.justsunnit.arson.config.ServerConfigModal;
 import net.justsunnit.arson.util.CountdownBuilder;
 import net.justsunnit.arson.util.JsonSaveHandler;
 import net.minecraft.command.CommandRegistryAccess;
@@ -23,7 +24,7 @@ public class MaintenanceCommand {
         dispatcher.register(CommandManager.literal("arson")
                 .then(CommandManager.literal("maintenance")
                         .requires(source -> !source.isExecutedByPlayer() ||
-                                source.hasPermissionLevel(4) || ArsonServer.config.isAdmin(source.getPlayer().getName().getLiteralString()))
+                                source.hasPermissionLevel(4) || ArsonServer.config.admins().contains(source.getPlayer().getName().getLiteralString()))
                         .then(CommandManager.argument("type" ,StringArgumentType.greedyString()).suggests((context, builder) ->
                                 builder.suggest("on").suggest("off").suggest("status").buildFuture())
                                 .executes(MaintenanceCommand::run))));
@@ -46,7 +47,7 @@ public class MaintenanceCommand {
 
         switch (type) {
             case "on":
-                List<String> admins = ArsonServer.config.getAdmins();
+                List<String> admins = ArsonServer.config.admins();
                 if (admins.isEmpty()) {
                     context.getSource().sendError(Text.of("[ArsonUtils] No admins configured. Please set at least one admin before enabling maintenance mode."));
                     return 0;
@@ -71,10 +72,10 @@ public class MaintenanceCommand {
                     .setOnFinish((ticks, _args) -> {
                         CommandContext<ServerCommandSource> ctx = (CommandContext<ServerCommandSource>) _args[1];
                         List<String> adms = (List<String>) _args[0];
-                        ConfigManger cng = (ConfigManger) _args[2];
+                        ArsonConfig cng = (ArsonConfig) _args[2];
                         HashMap<String,String> allPlayers = (HashMap<String, String>) _args[3];
 
-                        cng.setMaintenanceMode(true);
+                        cng.maintenanceMode(true);
 
                         for(ServerPlayerEntity player : ctx.getSource().getWorld().getPlayers()) {
                             if (player != null && !adms.contains(player.getName().getString())) {
@@ -86,11 +87,11 @@ public class MaintenanceCommand {
                 countdownBuilder.build().exe();
 
             case "off":
-                ArsonServer.config.setMaintenanceMode(false);
+                ArsonServer.config.maintenanceMode(false);
                 context.getSource().sendFeedback(() -> Text.of("[ArsonUtils] Maintenance mode is now OFF"), false);
                 break;
             case "status":
-                boolean status = ArsonServer.config.isMaintenanceMode();
+                boolean status = ArsonServer.config.maintenanceMode();
                 context.getSource().sendFeedback(() -> Text.of("[ArsonUtils] Maintenance mode is currently " + (status ? "ON" : "OFF")), false);
                 break;
 

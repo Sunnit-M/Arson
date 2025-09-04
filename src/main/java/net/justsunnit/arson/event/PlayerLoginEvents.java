@@ -26,8 +26,8 @@ public class PlayerLoginEvents {
         loginSynchronizer.waitFor(Wait);
 
         // Maintenance check
-        if (ArsonServer.config.isMaintenanceMode()) {
-            if (!ArsonServer.config.isAdmin(profile.getName())) {
+        if (ArsonServer.config.maintenanceMode()) {
+            if (!ArsonServer.config.admins().contains(profile.getName())) {
                 handler.disconnect(Text.literal("[ArsonUtils] Server is in maintenance mode. Please try again later.").styled(style -> style.withBold(true).withColor(Formatting.RED)));
                 return;
             }

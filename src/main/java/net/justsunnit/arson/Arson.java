@@ -2,6 +2,8 @@ package net.justsunnit.arson;
 
 import io.wispforest.owo.network.OwoNetChannel;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
 import net.justsunnit.arson.packets.RegisterPackets;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
