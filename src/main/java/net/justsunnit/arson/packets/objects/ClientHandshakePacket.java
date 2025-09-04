@@ -3,5 +3,6 @@ package net.justsunnit.arson.packets.objects;
 import java.util.List;
 
 public record ClientHandshakePacket(
-List<String> loadedMods
+List<String> loadedMods,
+String uuid
 ){}
