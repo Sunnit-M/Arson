@@ -10,6 +10,6 @@ import net.minecraft.client.network.ClientPlayNetworkHandler;
 
 public class ClientJoinServerEvent {
     public static void playerJoin(ClientPlayNetworkHandler clientPlayNetworkHandler, PacketSender packetSender, MinecraftClient minecraftClient) {
-        Arson.CLIENT_HANDSHAKE_CHANNEL.clientHandle().send(new ClientHandshakePacket(ClientStaticData.loadedModIDs));
+        Arson.CLIENT_HANDSHAKE_CHANNEL.clientHandle().send(new ClientHandshakePacket(ClientStaticData.loadedModIDs, minecraftClient.getGameProfile().getId().toString()));
     }
 }

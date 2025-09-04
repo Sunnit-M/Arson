@@ -7,6 +7,7 @@ import net.justsunnit.arson.event.EventRegistries;
 import net.minecraft.client.MinecraftClient;
 
 import java.util.Objects;
+import java.util.logging.Logger;
 
 public class ArsonClient implements ClientModInitializer {
 
@@ -21,5 +22,9 @@ public class ArsonClient implements ClientModInitializer {
         });
 
         EventRegistries.registerEvents_Client();
+
+        if(keyed){
+            Arson.LOGGER.info("Client Registered As Admin");
+        }
     }
 }
