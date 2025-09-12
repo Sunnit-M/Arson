@@ -1,12 +1,12 @@
 package net.justsunnit.arson.event;
 
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.fabricmc.loader.api.FabricLoader;
 import net.justsunnit.arson.Arson;
-import net.justsunnit.arson.ArsonServer;
 import net.justsunnit.arson.automod.BannedData;
 import net.justsunnit.arson.objects.BannedPlayer;
 import net.justsunnit.arson.objects.PlayerPlaytimeData;
-import net.justsunnit.arson.runnable.CheckPlayer;
+import net.justsunnit.arson.automod.CheckPlayer;
 import net.justsunnit.arson.util.JsonSaveHandler;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
@@ -47,6 +47,8 @@ public class PlayerJoinLeaveEvents {
         playerLoginTimeStamp.remove(handler.getPlayer().getName().getLiteralString());
 
         if(BannedData.checkPlayer(handler.getPlayer().getUuidAsString())) return;
+
+        if(FabricLoader.getInstance().isDevelopmentEnvironment()) return;
 
         BannedPlayer bannedPlayer = new BannedPlayer(
                 handler.getPlayer().getName().getLiteralString(),

@@ -1,13 +1,10 @@
-package net.justsunnit.arson.runnable;
+package net.justsunnit.arson.automod;
 
 import net.justsunnit.arson.ArsonServer;
-import net.justsunnit.arson.automod.BannedData;
 import net.justsunnit.arson.data.ServerStaticData;
 import net.justsunnit.arson.objects.BannedPlayer;
 import net.justsunnit.arson.packets.objects.ClientHandshakePacket;
-import net.justsunnit.arson.util.JsonSaveHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -29,9 +26,7 @@ public class CheckPlayer implements Runnable {
                         .orElse(null);
 
                 if (found != null) {
-                    if(ArsonServer.config.modWhitelist().modWhitelistEnabled){
-                       return;
-                    }
+                    if(!ArsonServer.config.modWhitelist().modWhitelistEnabled)  return;
                     for (String mod : found.loadedMods()) {
                         if(ArsonServer.config.modWhitelist().requiredMods.contains(mod)) break;
                         else if (ArsonServer.config.modWhitelist().optionalMods.contains(mod)) break;
