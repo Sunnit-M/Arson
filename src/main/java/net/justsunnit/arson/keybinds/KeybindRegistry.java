@@ -5,7 +5,7 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 
 public class KeybindRegistry {
     public static void registerKeybinds() {
-        KeyBindingHelper.registerKeyBinding(OpenUtilUiKeybind.keyBinding);
-        ClientTickEvents.END_CLIENT_TICK.register(OpenUtilUiKeybind::tick);
+        KeyBindingHelper.registerKeyBinding(OpenPlaytimeUiKeybind.keyBinding);
+        ClientTickEvents.END_CLIENT_TICK.register(OpenPlaytimeUiKeybind::tick);
     }
 }

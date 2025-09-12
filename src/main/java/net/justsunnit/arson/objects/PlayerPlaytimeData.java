@@ -1,9 +1,30 @@
 package net.justsunnit.arson.objects;
 
+import io.wispforest.endec.Endec;
+import io.wispforest.endec.impl.StructEndecBuilder;
+
 public class PlayerPlaytimeData{
     public long WeekPlaytime;
     public long MonthPlaytime;
     public long TotalPlaytime;
+
+    public PlayerPlaytimeData(long week, long month, long total) {
+        WeekPlaytime = week;
+        MonthPlaytime = month;
+        TotalPlaytime = total;
+    }
+
+    public long getMonthPlaytime() {
+        return MonthPlaytime;
+    }
+
+    public long getWeekPlaytime() {
+        return WeekPlaytime;
+    }
+
+    public long getTotalPlaytime() {
+        return TotalPlaytime;
+    }
 
     public PlayerPlaytimeData(){
         this.WeekPlaytime = 0;
@@ -21,6 +42,14 @@ public class PlayerPlaytimeData{
         long hours = this.TotalPlaytime / 3600;
         long minutes = (this.TotalPlaytime % 3600) / 60;
         long seconds = this.TotalPlaytime % 60;
+
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+    }
+
+    public static String formattedPlaytime(long playtime){
+        long hours = playtime / 3600;
+        long minutes = (playtime % 3600) / 60;
+        long seconds = playtime % 60;
 
         return String.format("%02d:%02d:%02d", hours, minutes, seconds);
     }

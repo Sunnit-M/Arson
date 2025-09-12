@@ -14,8 +14,12 @@ public class Arson implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     public static final Identifier CLIENT_HANDSHAKE_ID = Identifier.of(MOD_ID, "hasclient");
-    public static final OwoNetChannel CLIENT_HANDSHAKE_CHANNEL = OwoNetChannel.create(CLIENT_HANDSHAKE_ID);
+    public static final Identifier REQUEST_PLAYTIME_ID = Identifier.of(MOD_ID, "requestplaytime");
+    public static final Identifier SEND_PLAYTIME_ID = Identifier.of(MOD_ID, "sendplaytime");
 
+    public static final OwoNetChannel CLIENT_HANDSHAKE_CHANNEL = OwoNetChannel.create(CLIENT_HANDSHAKE_ID);
+    public static final OwoNetChannel REQUEST_PLAYTIME_CHANNEL = OwoNetChannel.create(REQUEST_PLAYTIME_ID);
+    public static final OwoNetChannel SEND_PLAYTIME_CHANNEL = OwoNetChannel.create(SEND_PLAYTIME_ID);
 
     @Override
     public void onInitialize() {
