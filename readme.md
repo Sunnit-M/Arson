@@ -24,7 +24,7 @@ ArsonUtils is a powerful and easy-to-use tool designed to help server administra
   - Optional Minecraft Improvements Supported ( Currently unable to disable )
 
 ### Installation
-1. Download the latest version of ArsonUtils from the [releases page](https://https://github.com/Sunnit-M/Arson/releases).
+1. Download the latest version of ArsonUtils from the [releases page](https://github.com/Sunnit-M/Arson/releases).
 2. Place the downloaded JAR file into the `mods` folder of your Fabric server.
 3. Start or restart your Fabric server to load the mod.
 4. Download the client mod and place it in the `mods` folder of your Minecraft client for full functionality.
