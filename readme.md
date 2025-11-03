@@ -39,3 +39,8 @@ ArsonUtils is a powerful and easy-to-use tool designed to help server administra
 
 ### Contributing
 Contributions are welcome! If you have suggestions for new features or improvements, please open an issue or submit a pull request
+
+### Thanks / Dependencies
+- Owo-Lib - Used for networking and config very good library huge time saver.
+- FabricAPI - The whole mod is built on this.
+- Mod Menu - For the client side menu implementation.
