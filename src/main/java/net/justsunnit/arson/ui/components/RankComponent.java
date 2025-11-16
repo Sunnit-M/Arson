@@ -19,6 +19,6 @@ public class RankComponent {
         Identifier rankTexture = Identifier.of("arson", "textures/ui/ranks/rank_" + rank + ".png");
 
         return Components.label(Text.literal(rank + " - " + name + " : " + PlayerPlaytimeData.formattedPlaytime(data)))
-                .color(Objects.equals(name, client.getGameProfile().getName()) ? Color.RED : Color.WHITE);
+                .color(Objects.equals(name, client.getGameProfile().name()) ? Color.RED : Color.WHITE);
     }
 }

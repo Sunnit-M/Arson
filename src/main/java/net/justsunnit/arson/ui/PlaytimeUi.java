@@ -105,7 +105,7 @@ public class PlaytimeUi extends BaseOwoScreen<FlowLayout> {
 
     public void refresh(){
         Arson.REQUEST_PLAYTIME_CHANNEL.clientHandle().send(
-                new RequestPacket(MinecraftClient.getInstance().getGameProfile().getName()
-                        ,MinecraftClient.getInstance().getGameProfile().getId().toString()));
+                new RequestPacket(MinecraftClient.getInstance().getGameProfile().name()
+                        ,MinecraftClient.getInstance().getGameProfile().id().toString(), 0));
     }
 }

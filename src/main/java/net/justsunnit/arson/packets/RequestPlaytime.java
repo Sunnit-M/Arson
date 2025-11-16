@@ -13,19 +13,21 @@ import java.util.Map;
 
 public class RequestPlaytime {
     public static void run(RequestPacket requestPacket, ServerAccess serverAccess) {
-        Arson.LOGGER.info("Received playtime request from " + serverAccess.player().getName().getString());
+        if (requestPacket.type() == 0) {
+            Arson.LOGGER.info("Received playtime request from " + serverAccess.player().getName().getString());
 
-        Map<String, Long> week = new HashMap<>();
-        Map<String,Long> monthly = new HashMap<>();
-        Map<String,Long> allTime = new HashMap<>();
+            Map<String, Long> week = new HashMap<>();
+            Map<String, Long> monthly = new HashMap<>();
+            Map<String, Long> allTime = new HashMap<>();
 
-        for (String id : JsonSaveHandler.GetPlayerPlaytimeData().keySet()){
-            PlayerPlaytimeData data = JsonSaveHandler.GetPlayerPlaytimeData().get(id);
-            week.put(id, data.getWeekPlaytime());
-            monthly.put(id, data.getMonthPlaytime());
-            allTime.put(id, data.getTotalPlaytime());
+            for (String id : JsonSaveHandler.GetPlayerPlaytimeData().keySet()) {
+                PlayerPlaytimeData data = JsonSaveHandler.GetPlayerPlaytimeData().get(id);
+                week.put(id, data.getWeekPlaytime());
+                monthly.put(id, data.getMonthPlaytime());
+                allTime.put(id, data.getTotalPlaytime());
+            }
+
+            Arson.SEND_PLAYTIME_CHANNEL.serverHandle(serverAccess.player()).send(new PlaytimePacket(week, monthly, allTime));
         }
-
-        Arson.SEND_PLAYTIME_CHANNEL.serverHandle(serverAccess.player()).send(new PlaytimePacket(week, monthly, allTime));
     }
 }
