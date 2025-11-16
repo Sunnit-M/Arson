@@ -20,6 +20,7 @@ public class ServerConfigModal {
     public boolean maintenanceMode = false;
 
     public List<String> admins = new ArrayList<>();
+    public List<String> keyedUsers = new ArrayList<>();
 
     public modWhitelists modWhitelist = new modWhitelists();
     public static class modWhitelists {
