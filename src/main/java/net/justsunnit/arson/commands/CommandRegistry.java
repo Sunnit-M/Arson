@@ -10,10 +10,8 @@ public class CommandRegistry {
         CommandRegistrationCallback.EVENT.register(UnBan::register);
         CommandRegistrationCallback.EVENT.register(BanListCommand::register);
         CommandRegistrationCallback.EVENT.register(MaintenanceCommand::register);
-        CommandRegistrationCallback.EVENT.register(PlaytimeCommand::register);
         CommandRegistrationCallback.EVENT.register(SetMotdCommand::register);
         CommandRegistrationCallback.EVENT.register(HelpCommand::register);
-        CommandRegistrationCallback.EVENT.register(GetPlayerPlaytimeCommand::register);
         CommandRegistrationCallback.EVENT.register(PermBanCommand::register);
     }
 }

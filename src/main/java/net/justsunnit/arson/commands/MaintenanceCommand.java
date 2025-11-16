@@ -9,6 +9,7 @@ import net.justsunnit.arson.config.ArsonConfig;
 import net.justsunnit.arson.config.ServerConfigModal;
 import net.justsunnit.arson.util.CountdownBuilder;
 import net.justsunnit.arson.util.JsonSaveHandler;
+import net.justsunnit.fern.Fern;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
@@ -24,7 +25,7 @@ public class MaintenanceCommand {
         dispatcher.register(CommandManager.literal("arson")
                 .then(CommandManager.literal("maintenance")
                         .requires(source -> !source.isExecutedByPlayer() ||
-                                source.hasPermissionLevel(4) || ArsonServer.config.admins().contains(source.getPlayer().getName().getLiteralString()))
+                                source.hasPermissionLevel(4) || Fern.check(source, "Admin.maintenance") || Fern.checkGroup(source, "Admin"))
                         .then(CommandManager.argument("type" ,StringArgumentType.greedyString()).suggests((context, builder) ->
                                 builder.suggest("on").suggest("off").suggest("status").buildFuture())
                                 .executes(MaintenanceCommand::run))));

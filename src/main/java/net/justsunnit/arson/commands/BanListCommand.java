@@ -7,6 +7,7 @@ import net.justsunnit.arson.ArsonServer;
 import net.justsunnit.arson.automod.BannedData;
 import net.justsunnit.arson.objects.BannedPlayer;
 import net.justsunnit.arson.util.TextFormatter;
+import net.justsunnit.fern.Fern;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
@@ -19,7 +20,7 @@ public class BanListCommand {
         dispatcher.register(CommandManager.literal("arson")
                 .then(CommandManager.literal("banlist")
                         .requires(source ->
-                        !source.isExecutedByPlayer() || ArsonServer.config.admins().contains(source.getPlayer().getName().getLiteralString()) || source.hasPermissionLevel(4))
+                        !source.isExecutedByPlayer() || Fern.check(source, "Mod.banlist") || Fern.checkGroup(source, "Mod") || source.hasPermissionLevel(4))
                 .executes(BanListCommand::run)));
     }
 

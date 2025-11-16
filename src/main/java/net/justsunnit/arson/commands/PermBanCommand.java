@@ -9,6 +9,7 @@ import net.justsunnit.arson.automod.BannedData;
 import net.justsunnit.arson.objects.BannedPlayer;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.GameProfileArgumentType;
+import net.minecraft.server.PlayerConfigEntry;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
@@ -28,15 +29,15 @@ public class PermBanCommand {
 
     public static int run(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         try {
-            Collection<GameProfile> profiles = GameProfileArgumentType.getProfileArgument(context, "player");
+            Collection<PlayerConfigEntry> profiles = GameProfileArgumentType.getProfileArgument(context, "player");
             String reason = StringArgumentType.getString(context, "reason");
-            GameProfile player = profiles.iterator().next();
+            PlayerConfigEntry player = profiles.iterator().next();
 
-            BannedPlayer data = new BannedPlayer(player.getName(), reason, LocalDateTime.now(), 0L, true);
+            BannedPlayer data = new BannedPlayer(player.name(), reason, LocalDateTime.now(), 0L, true);
 
-            BannedData.banPlayer(data, player.getId().toString());
+            BannedData.banPlayer(data, player.id().toString());
 
-            context.getSource().sendMessage(Text.literal("[ArsonUtils] Player " + player.getName() + " has been permanently banned. Reason: " + data.Reason.toString()).styled(style -> style.withBold(true)));
+            context.getSource().sendMessage(Text.literal("[ArsonUtils] Player " + player.name() + " has been permanently banned. Reason: " + data.Reason.toString()).styled(style -> style.withBold(true)));
 
             return 1;
         }

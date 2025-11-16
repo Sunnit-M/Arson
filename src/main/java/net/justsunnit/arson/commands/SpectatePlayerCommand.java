@@ -5,6 +5,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.justsunnit.arson.ArsonServer;
 import net.justsunnit.arson.util.JsonSaveHandler;
+import net.justsunnit.fern.Fern;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.server.command.CommandManager;
@@ -20,7 +21,7 @@ public class SpectatePlayerCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess dedicated, CommandManager.RegistrationEnvironment environment) {
         dispatcher.register(CommandManager.literal("arson")
                 .then(CommandManager.literal("spectate").requires(source ->
-                                !source.isExecutedByPlayer() || ArsonServer.config.admins().contains(source.getPlayer().getName().getLiteralString()) || source.hasPermissionLevel(4))
+                                !source.isExecutedByPlayer() || Fern.check(source, "Mod.spectate") || Fern.checkGroup(source, "Mod") || source.hasPermissionLevel(4))
                         .then(CommandManager.argument("player", EntityArgumentType.player())
                                 .executes(SpectatePlayerCommand::run)
                         )

@@ -4,6 +4,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import net.justsunnit.arson.ArsonServer;
 import net.justsunnit.arson.util.JsonSaveHandler;
+import net.justsunnit.fern.Fern;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
@@ -18,7 +19,7 @@ public class SpectateReturnCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess dedicated, CommandManager.RegistrationEnvironment environment) {
         dispatcher.register(CommandManager.literal("arson")
                 .then(CommandManager.literal("return").requires(source ->
-                                !source.isExecutedByPlayer() || ArsonServer.config.admins().contains(source.getPlayer().getName().getLiteralString()) || source.hasPermissionLevel(4))
+                                !source.isExecutedByPlayer() || Fern.check(source, "Mod.spectate") || Fern.checkGroup(source, "Mod") || source.hasPermissionLevel(4))
                         .executes(SpectateReturnCommand::run)));
     }
 

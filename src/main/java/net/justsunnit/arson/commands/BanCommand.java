@@ -9,9 +9,11 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.justsunnit.arson.ArsonServer;
 import net.justsunnit.arson.automod.BannedData;
 import net.justsunnit.arson.objects.BannedPlayer;
+import net.justsunnit.fern.Fern;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.command.argument.GameProfileArgumentType;
+import net.minecraft.server.PlayerConfigEntry;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
@@ -23,7 +25,7 @@ public class BanCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher, CommandRegistryAccess dedicated, CommandManager.RegistrationEnvironment environment) {
         dispatcher.register((CommandManager.literal("arson")
                 .then(CommandManager.literal("timedBan").requires(source ->  !source.isExecutedByPlayer() ||
-                                ArsonServer.config.admins().contains(source.getPlayer().getName().getLiteralString()) || source.hasPermissionLevel(4))
+                                Fern.check(source,"Admin.ban") || Fern.checkGroup(source, "Admin") || source.hasPermissionLevel(4))
                 .then(CommandManager.argument("player", GameProfileArgumentType.gameProfile())
                 .then(CommandManager.argument("days", IntegerArgumentType.integer(0))
                 .then(CommandManager.argument("hours", IntegerArgumentType.integer(0))
@@ -35,8 +37,8 @@ public class BanCommand {
 
     public static int run(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         try {
-            Collection<GameProfile> Profiles = GameProfileArgumentType.getProfileArgument(context, "player");
-            GameProfile player = Profiles.iterator().next();
+            Collection<PlayerConfigEntry> Profiles = GameProfileArgumentType.getProfileArgument(context, "player");
+            PlayerConfigEntry player = Profiles.iterator().next();
             int Days = IntegerArgumentType.getInteger(context, "days");
             int Hours = IntegerArgumentType.getInteger(context, "hours");
             int Minutes = IntegerArgumentType.getInteger(context, "minutes");
@@ -48,11 +50,11 @@ public class BanCommand {
                 return 0;
             }
 
-            BannedPlayer data = new BannedPlayer(player.getName(), Reason, LocalDateTime.now(), Days * 86400L + Hours * 3600L + Minutes * 60L + Seconds, false);
+            BannedPlayer data = new BannedPlayer(player.name(), Reason, LocalDateTime.now(), Days * 86400L + Hours * 3600L + Minutes * 60L + Seconds, false);
 
-            BannedData.banPlayer(data, player.getId().toString());
+            BannedData.banPlayer(data, player.id().toString());
 
-            context.getSource().sendMessage(Text.literal("[ArsonUtils] Player " + player.getName() + " has been banned for: " + data.BanSeconds + " seconds. Reason: " + data.Reason.toString()).styled(style -> style.withBold(true)));
+            context.getSource().sendMessage(Text.literal("[ArsonUtils] Player " + player.name() + " has been banned for: " + data.BanSeconds + " seconds. Reason: " + data.Reason.toString()).styled(style -> style.withBold(true)));
 
             return 1;
         }
